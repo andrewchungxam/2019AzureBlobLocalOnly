@@ -124,6 +124,7 @@ namespace AzureBlobStorageSampleApp
                         var photoBlobModPlusId = new PhotoBlobModelPlusId
                         {
                            //Image = ConvertStreamToByteArrary(mediaFile.GetStream())
+                            CreatedAt = photo.CreatedAt,
                             Image = bytes,
                             Id = photo.Id
                         };

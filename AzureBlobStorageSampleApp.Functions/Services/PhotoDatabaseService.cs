@@ -50,6 +50,26 @@ namespace AzureBlobStorageSampleApp.Functions
             }
         }
 
+        public static Task<PhotoModel> InsertUpdatedPhoto(PhotoModel photo)
+        {
+            return PerformDatabaseFunction(insertPhoto);
+
+            async Task<PhotoModel> insertPhoto(Database dataContext)
+            {
+                if (string.IsNullOrWhiteSpace(photo.Id))
+                    photo.Id = Guid.NewGuid().ToString();
+
+                var currentTime = DateTimeOffset.UtcNow;
+
+                //photo.CreatedAt = currentTime;
+                photo.UpdatedAt = currentTime;
+
+                await dataContext.InsertAsync(photo).ConfigureAwait(false);
+
+                return photo;
+            }
+        }
+
         public static Task<PhotoModel> UpdatePhoto(PhotoModel photo)
         {
             return PerformDatabaseFunction(updatePhoto);
