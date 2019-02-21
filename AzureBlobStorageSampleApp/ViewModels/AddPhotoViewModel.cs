@@ -608,7 +608,7 @@ namespace AzureBlobStorageSampleApp
                         Title = photoTitle,
                         //Url = LocalPhotoPath,
                         Url = LocalPhotoPathRelevant,
-                        //CreatedAt = currentTime,
+                        CreatedAt = currentTime,
                         //UpdatedAt = currentTime,
                     };
                         await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
