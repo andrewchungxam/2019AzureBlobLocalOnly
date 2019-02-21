@@ -18,8 +18,12 @@ namespace AzureBlobStorageSampleApp
 
             var (photosToPatchToLocalDatabase, photosToPatchToRemoteDatabase) = GetModelsThatNeedUpdating(photoListFromLocalDatabase, photoListFromRemoteDatabase, photosInBothDatabases);
 
-            await SavePhotos(photosInRemoteDatabaseButNotStoredLocally.Concat(photosToPatchToLocalDatabase).ToList(), photosInLocalDatabaseButNotStoredRemotely.Concat(photosToPatchToRemoteDatabase).ToList());
-        }
+            //await SavePhotos(photosInRemoteDatabaseButNotStoredLocally.Concat(photosToPatchToLocalDatabase).ToList(), photosInLocalDatabaseButNotStoredRemotely.Concat(photosToPatchToRemoteDatabase).ToList());
+
+            //restructured away from previous parameters
+            await SavePhotos(photosToPatchToRemoteDatabase,  photosToPatchToLocalDatabase, photosInRemoteDatabaseButNotStoredLocally, photosInLocalDatabaseButNotStoredRemotely);
+        
+            }
 
         static async Task<(List<PhotoModel> photoListFromLocalDatabase,
             List<PhotoModel> photoListFromRemoteDatabase)> GetAllSavedPhotos()
@@ -79,20 +83,20 @@ namespace AzureBlobStorageSampleApp
                     modelsToPatchToRemoteDatabase ?? new List<T>());
         }
 
-        static Task SavePhotos(List<PhotoModel> photosToSaveToLocalDatabase,
-                                List<PhotoModel> photosToSaveToRemoteDatabase)
-        {
-            var savephotoTaskList = new List<Task>();
+        //static Task SavePhotos(List<PhotoModel> photosToSaveToLocalDatabase,
+        //                        List<PhotoModel> photosToSaveToRemoteDatabase)
+        //{
+        //    var savephotoTaskList = new List<Task>();
 
-            foreach (var photo in photosToSaveToLocalDatabase)
-                savephotoTaskList.Add(PhotoDatabase.SavePhoto(photo));
+        //    foreach (var photo in photosToSaveToLocalDatabase)
+        //        savephotoTaskList.Add(PhotoDatabase.SavePhoto(photo));
 
-            //ToDo Add Patch API
+        //    //ToDo Add Patch API
 
-            return Task.WhenAll(savephotoTaskList);
-        }
+        //    return Task.WhenAll(savephotoTaskList);
+        //}
 
-        static Task SaveContacts(List<PhotoModel> photosToPatchToRemoteDatabase, 
+        async static Task SavePhotos(List<PhotoModel> photosToPatchToRemoteDatabase, 
                                     List<PhotoModel> photosToPatchToLocalDatabase,
                                  List<PhotoModel> photosToAddToLocalDatabase,
                                     List<PhotoModel> photosToPostToRemoteDatabase)
@@ -128,7 +132,7 @@ namespace AzureBlobStorageSampleApp
                         {
 
                             //HitPostApi with PhotoBlob + photo.Title + Id // if ID not retained, then it create a totally new one and not patch the old one
-                            var returnedPhoto = APIService.PostPhotoBlobPlusId(photoBlobModPlusId, photo.Title);
+                            var returnedPhoto = await APIService.PostPhotoBlobPlusId(photoBlobModPlusId, photo.Title);
 
                             //                 Get back a PhotoModel photo
                             //Locally Update (PATCH) this PhotoModelPhoto
@@ -168,7 +172,7 @@ namespace AzureBlobStorageSampleApp
             foreach (var photo in photosToPatchToLocalDatabase)
                 savephotoTaskList.Add(PhotoDatabase.UpdatePhoto(photo));
 
-            return Task.WhenAll(savephotoTaskList);
+            await Task.WhenAll(savephotoTaskList);
         }
     }
 }

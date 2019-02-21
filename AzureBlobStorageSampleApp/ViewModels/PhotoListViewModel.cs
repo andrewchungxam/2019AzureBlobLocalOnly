@@ -79,7 +79,7 @@ namespace AzureBlobStorageSampleApp
 
 
                 //NOT SURE WE NEED THIS ONE IN THE LOCAL ONLY SCNEARIO
-//                await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
+                await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
 
 
 

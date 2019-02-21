@@ -495,6 +495,62 @@ namespace AzureBlobStorageSampleApp
         //    }
         //}
 
+        ////WITHOUT INTERNET
+        //async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
+        //{
+        //    if (IsPhotoSaving)
+        //        return;
+
+        //    //#TODO - Uncomment - when blob storage requires authorization
+        //    if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
+        //    {
+        //        OnSavePhotoFailed("Invalid Azure Function Key");
+        //        return;
+        //    }
+
+        //    if (string.IsNullOrWhiteSpace(photoTitle))
+        //    {
+        //        OnSavePhotoFailed("Title Cannot Be Empty");
+        //        return;
+        //    }
+
+        //    IsPhotoSaving = true;
+
+        //    try
+        //    {
+        //        //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
+
+        //        //if (photo is null)
+        //        //{
+        //        //    OnSavePhotoFailed("Error Uploading Photo");
+        //        //}
+        //        //else
+        //        //{
+
+        //        var currentTime = DateTimeOffset.UtcNow;
+
+        //        var photo = new PhotoModel() { 
+                
+        //            Title = photoTitle,
+        //            //Url = LocalPhotoPath,
+        //            Url = LocalPhotoPathRelevant,
+        //            //CreatedAt = currentTime,
+        //            //UpdatedAt = currentTime,
+        //        };
+        //            await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
+        //            OnSavePhotoCompleted();
+        //        //}
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        OnSavePhotoFailed(e.Message);
+        //    }
+        //    finally
+        //    {
+        //        IsPhotoSaving = false;
+        //    }
+        //}
+
         //WITHOUT INTERNET
         async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
         {
@@ -502,11 +558,11 @@ namespace AzureBlobStorageSampleApp
                 return;
 
             //#TODO - Uncomment - when blob storage requires authorization
-            //if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
-            //{
-            //    OnSavePhotoFailed("Invalid Azure Function Key");
-            //    return;
-            //}
+            if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
+            {
+                OnSavePhotoFailed("Invalid Azure Function Key");
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(photoTitle))
             {
@@ -518,28 +574,46 @@ namespace AzureBlobStorageSampleApp
 
             try
             {
-                //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
-                //if (photo is null)
-                //{
-                //    OnSavePhotoFailed("Error Uploading Photo");
-                //}
-                //else
-                //{
+                if  (this.IsInternetConnectionActive == true)
+                {
+                    var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
-                var currentTime = DateTimeOffset.UtcNow;
+                    if (photo is null)
+                    {
+                        OnSavePhotoFailed("Error Uploading Photo");
+                    }
+                    else
+                    {
+                        await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
+                        OnSavePhotoCompleted();
+                    } 
+                }
+                //INTERNET-OFF
+                else if (this.IsInternetConnectionActive == false)
+                { 
+                    //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
-                var photo = new PhotoModel() { 
-                
-                    Title = photoTitle,
-                    //Url = LocalPhotoPath,
-                    Url = LocalPhotoPathRelevant,
-                    //CreatedAt = currentTime,
-                    //UpdatedAt = currentTime,
-                };
-                    await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
-                    OnSavePhotoCompleted();
-                //}
+                    //if (photo is null)
+                    //{
+                    //    OnSavePhotoFailed("Error Uploading Photo");
+                    //}
+                    //else
+                    //{
+
+                    var currentTime = DateTimeOffset.UtcNow;
+
+                    var photo = new PhotoModel() { 
+                    
+                        Title = photoTitle,
+                        //Url = LocalPhotoPath,
+                        Url = LocalPhotoPathRelevant,
+                        //CreatedAt = currentTime,
+                        //UpdatedAt = currentTime,
+                    };
+                        await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
+                        OnSavePhotoCompleted();
+                }
             }
             catch (Exception e)
             {
