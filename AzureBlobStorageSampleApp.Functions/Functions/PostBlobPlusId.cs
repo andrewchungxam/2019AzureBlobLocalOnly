@@ -33,8 +33,10 @@ namespace AzureBlobStorageSampleApp.Functions
                 //ALREADY ID COMPATIBLE
                 //await PhotoDatabaseService.InsertPhoto(photo).ConfigureAwait(false);
 
+                photo.CreatedAt = imageBlobWithId.CreatedAt;
+
                 //BELIEVE THIS SHOULD BE TO ADJUST UPDATE TIME
-                await PhotoDatabaseService.UpdatePhoto(photo).ConfigureAwait(false);
+                await PhotoDatabaseService.InsertUpdatedPhoto(photo).ConfigureAwait(false);
 
 
                 return new CreatedResult(photo.Url, photo);
