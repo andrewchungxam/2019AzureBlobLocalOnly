@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 using AzureBlobStorageSampleApp.Shared;
 using AzureBlobStorageSampleApp.Mobile.Shared;
+using Xamarin.Essentials;
 
 namespace AzureBlobStorageSampleApp
 {
@@ -21,6 +22,14 @@ namespace AzureBlobStorageSampleApp
         #region Constructors
         public PhotoListPage()
         {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                ViewModel.IsInternetConnectionActive = true;
+            }
+            else 
+            { 
+               ViewModel.IsInternetConnectionActive = false;
+            }
 
             searchBar = new SearchBar
             {
@@ -88,7 +97,30 @@ namespace AzureBlobStorageSampleApp
             base.OnAppearing();
 
             Device.BeginInvokeOnMainThread(_photosListView.BeginRefresh);
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+
+        }
+
+        void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            { 
+                ViewModel.IsInternetConnectionActive = true;
+            }
+            else
+            { 
+                ViewModel.IsInternetConnectionActive = false;
+            }
+
+        }
+
 
         void HandleItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

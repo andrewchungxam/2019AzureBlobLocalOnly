@@ -77,10 +77,10 @@ namespace AzureBlobStorageSampleApp
                 var oneSecondTaskToShowSpinner = Task.Delay(700);
 
 
-
+                if (this.IsInternetConnectionActive == true) { 
                 //NOT SURE WE NEED THIS ONE IN THE LOCAL ONLY SCNEARIO
-                await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
-
+                    await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
+                }
 
 
 
