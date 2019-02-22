@@ -36,40 +36,40 @@ namespace AzureBlobStorageSampleApp.Functions
                 photo.CreatedAt = imageBlobWithId.CreatedAt;
 
                 //CARRY OVER ADDIIONAL FIELDS
-                photo.Tag1 = imageBlob.Tag1;
-                photo.Tag2 = imageBlob.Tag2;
-                photo.Tag3 = imageBlob.Tag3;
-                photo.Tag4 = imageBlob.Tag4;
-                photo.Tag5 = imageBlob.Tag5;
-                photo.Tag6 = imageBlob.Tag6;
-                photo.Tag7 = imageBlob.Tag7;
-                photo.Tag8 = imageBlob.Tag8;
-                photo.Tag9 = imageBlob.Tag9;
-                photo.Tag10 = imageBlob.Tag10;
+                photo.Tag1 = imageBlobWithId.Tag1;
+                photo.Tag2 = imageBlobWithId.Tag2;
+                photo.Tag3 = imageBlobWithId.Tag3;
+                photo.Tag4 = imageBlobWithId.Tag4;
+                photo.Tag5 = imageBlobWithId.Tag5;
+                photo.Tag6 = imageBlobWithId.Tag6;
+                photo.Tag7 = imageBlobWithId.Tag7;
+                photo.Tag8 = imageBlobWithId.Tag8;
+                photo.Tag9 = imageBlobWithId.Tag9;
+                photo.Tag10 = imageBlobWithId.Tag10;
 
-                photo.TagsSeperatedWithSpaces = imageBlob.TagsSeperatedWithSpaces;
+                photo.TagsSeperatedWithSpaces = imageBlobWithId.TagsSeperatedWithSpaces;
 
-                photo.CustomTag1 = imageBlob.CustomTag1;
-                photo.CustomTag2 = imageBlob.CustomTag2;
-                photo.CustomTag3 = imageBlob.CustomTag3;
-                photo.CustomTag4 = imageBlob.CustomTag4;
-                photo.CustomTag5 = imageBlob.CustomTag5;
-                photo.CustomTag6 = imageBlob.CustomTag6;
-                photo.CustomTag7 = imageBlob.CustomTag7;
-                photo.CustomTag8 = imageBlob.CustomTag8;
-                photo.CustomTag9 = imageBlob.CustomTag9;
-                photo.CustomTag10 = imageBlob.CustomTag10;
+                photo.CustomTag1 = imageBlobWithId.CustomTag1;
+                photo.CustomTag2 = imageBlobWithId.CustomTag2;
+                photo.CustomTag3 = imageBlobWithId.CustomTag3;
+                photo.CustomTag4 = imageBlobWithId.CustomTag4;
+                photo.CustomTag5 = imageBlobWithId.CustomTag5;
+                photo.CustomTag6 = imageBlobWithId.CustomTag6;
+                photo.CustomTag7 = imageBlobWithId.CustomTag7;
+                photo.CustomTag8 = imageBlobWithId.CustomTag8;
+                photo.CustomTag9 = imageBlobWithId.CustomTag9;
+                photo.CustomTag10 = imageBlobWithId.CustomTag10;
 
-                photo.CustomTagsSeperatedWithSpaces = imageBlob.CustomTagsSeperatedWithSpaces;
-                photo.CreatedAtString = imageBlob.CreatedAtString;
+                photo.CustomTagsSeperatedWithSpaces = imageBlobWithId.CustomTagsSeperatedWithSpaces;
+                photo.CreatedAtString = imageBlobWithId.CreatedAtString;
 
-                photo.City = City;
-                photo.LocationState = LocationState;
-                photo.Country = LocationState;
-                photo.CityState = LocationState;
+                photo.City = imageBlobWithId.City;
+                photo.LocationState = imageBlobWithId.LocationState;
+                photo.Country = imageBlobWithId.LocationState;
+                photo.CityState = imageBlobWithId.LocationState;
 
-                photo.Lat = Lat;
-                photo.Long = Long;
+                photo.Lat = imageBlobWithId.Lat;
+                photo.Long = imageBlobWithId.Long;
 
                 //BELIEVE THIS SHOULD BE TO ADJUST UPDATE TIME
                 await PhotoDatabaseService.InsertUpdatedPhoto(photo).ConfigureAwait(false);

@@ -54,13 +54,13 @@ namespace AzureBlobStorageSampleApp.Functions
                 photo.CustomTagsSeperatedWithSpaces = imageBlob.CustomTagsSeperatedWithSpaces;
                 photo.CreatedAtString = imageBlob.CreatedAtString;
 
-                photo.City = City;
-                photo.LocationState = LocationState;
-                photo.Country = LocationState;
-                photo.CityState = LocationState;
+                photo.City = imageBlob.City;
+                photo.LocationState = imageBlob.LocationState;
+                photo.Country = imageBlob.LocationState;
+                photo.CityState = imageBlob.LocationState;
 
-                photo.Lat = Lat;
-                photo.Long = Long;
+                photo.Lat = imageBlob.Lat;
+                photo.Long = imageBlob.Long;
 
 
                 await PhotoDatabaseService.InsertPhoto(photo).ConfigureAwait(false);
