@@ -23,5 +23,31 @@ namespace AzureBlobStorageSampleApp.Shared
         public bool IsDeleted { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
+
+        public string Tag1 { get;set;}
+        public string Tag2 { get;set;}
+        public string Tag3 { get;set;}
+        public string Tag4 { get;set;}
+        public string Tag5 { get;set;}
+        public string Tag6 { get;set;}
+        public string Tag7 { get;set;}
+        public string Tag8 { get;set;}
+        public string Tag9 { get;set;}
+        public string Tag10 { get;set;}
+        public string TagsSeperatedWithSpaces { get;set;}
+        public string CustomTag1 { get;set;}
+        public string CustomTag2 { get;set;}
+        public string CustomTag3 { get;set;}
+        public string CustomTag4 { get;set;}
+        public string CustomTag5 { get;set;}
+        public string CustomTag6 { get;set;}
+        public string CustomTag7 { get;set;}
+        public string CustomTag8 { get;set;}
+        public string CustomTag9 { get;set;}
+        public string CustomTag10 { get;set;}
+        public string CustomTagsSeperatedWithSpaces { get;set;}
+
+        public string CreatedAtString { get; set; }
+
     }
 }

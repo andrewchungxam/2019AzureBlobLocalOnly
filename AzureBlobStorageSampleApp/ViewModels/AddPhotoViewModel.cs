@@ -32,6 +32,8 @@ using System.Globalization;
 
 namespace AzureBlobStorageSampleApp
 {
+
+
     public class AddPhotoViewModel : BaseViewModel
     {
         #region Constant Fields
@@ -281,6 +283,213 @@ namespace AzureBlobStorageSampleApp
             set => SetProperty(ref _localPhotoPathRelevant, value);
         }
 
+
+        //ADDING DATA ON PHOTO
+        float _lat;
+        public float Lat
+        {
+            get => _lat;
+            set => SetProperty(ref _lat, value);
+        }
+
+        float _long;
+        public float Long
+        {
+            get => _long;
+            set => SetProperty(ref _long, value);
+        }
+
+
+        string _city;
+        public string City
+        {
+            get => _city;
+            set => SetProperty(ref _city, value);
+        }
+           
+
+        string _state;
+        public string State
+        {
+            get => _state;
+            set => SetProperty(ref _state, value);
+        }
+
+        string _country;
+        public string Country
+        {
+            get => _country;
+            set => SetProperty(ref _country, value);
+        }
+
+        string _cityState;
+        public string CityState
+        {
+            get => _cityState;
+            set => SetProperty(ref _cityState, value);
+        }
+
+        string _tag1;
+        public string Tag1
+        {
+            get => _tag1;
+            set => SetProperty(ref _tag1, value);
+        }
+
+        string _tag2;
+        public string Tag2
+        {
+            get => _tag2;
+            set => SetProperty(ref _tag2, value);
+        }
+
+        string _tag3;
+        public string Tag3
+        {
+            get => _tag3;
+            set => SetProperty(ref _tag3, value);
+        }
+
+        string _tag4;
+        public string Tag4
+        {
+            get => _tag4;
+            set => SetProperty(ref _tag4, value);
+        }
+
+        string _tag5;
+        public string Tag5
+        {
+            get => _tag5;
+            set => SetProperty(ref _tag5, value);
+        }
+
+        string _tag6;
+        public string Tag6
+        {
+            get => _tag6;
+            set => SetProperty(ref _tag6, value);
+        }
+
+        string _tag7;
+        public string Tag7
+        {
+            get => _tag7;
+            set => SetProperty(ref _tag7, value);
+        }
+
+        string _tag8;
+        public string Tag8
+        {
+            get => _tag8;
+            set => SetProperty(ref _tag8, value);
+        }
+
+        string _tag9;
+        public string Tag9
+        {
+            get => _tag9;
+            set => SetProperty(ref _tag9, value);
+        }
+
+        string _tag10;
+        public string Tag10
+        {
+            get => _tag10;
+            set => SetProperty(ref _tag10, value);
+        }
+
+        string _tagsSeperatedWithSpaces;
+        public string TagsSeperatedWithSpaces
+        {
+            get => _tagsSeperatedWithSpaces;
+            set => SetProperty(ref _tagsSeperatedWithSpaces, value);
+        }
+
+        string _customTag1;
+        public string CustomTag1
+        {
+            get => _customTag1;
+            set => SetProperty(ref _customTag1, value);
+        }
+
+        string _customTag2;
+        public string CustomTag2
+        {
+            get => _customTag2;
+            set => SetProperty(ref _customTag2, value);
+        }
+
+        string _customTag3;
+        public string CustomTag3
+        {
+            get => _customTag3;
+            set => SetProperty(ref _customTag3, value);
+        }
+
+        string _customTag4;
+        public string CustomTag4
+        {
+            get => _customTag4;
+            set => SetProperty(ref _customTag4, value);
+        }
+
+        string _customTag5;
+        public string CustomTag5
+        {
+            get => _customTag5;
+            set => SetProperty(ref _customTag5, value);
+        }
+
+        string _customTag6;
+        public string CustomTag6
+        {
+            get => _customTag6;
+            set => SetProperty(ref _customTag6, value);
+        }
+
+        string _customTag7;
+        public string CustomTag7
+        {
+            get => _customTag7;
+            set => SetProperty(ref _customTag7, value);
+        }
+
+        string _customTag8;
+        public string CustomTag8
+        {
+            get => _customTag8;
+            set => SetProperty(ref _customTag8, value);
+        }
+
+        string _customTag9;
+        public string CustomTag9
+        {
+            get => _customTag9;
+            set => SetProperty(ref _customTag9, value);
+        }
+
+        string _customTag10;
+        public string CustomTag10
+        {
+            get => _customTag10;
+            set => SetProperty(ref _customTag10, value);
+        }
+
+        string _customTagsSeperatedWithSpaces;
+        public string CustomTagsSeperatedWithSpaces
+        {
+            get => _customTagsSeperatedWithSpaces;
+            set => SetProperty(ref _customTagsSeperatedWithSpaces, value);
+        }
+
+        string _createdAtString;
+        public string CreatedAtString
+        {
+            get => _createdAtString;
+            set => SetProperty(ref _createdAtString, value);
+        }
+
         Xamarin.Essentials.Location _location;
 
         #endregion
@@ -381,6 +590,9 @@ namespace AzureBlobStorageSampleApp
             try
             {
                 this.PhotoCreatedDateTime = DateTimeOffset.UtcNow;
+                //            var dateTimeNowStringJpg = $"{DateTime.Now.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.jpg";
+                this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.FilteredDate";
+
             }
             catch (Exception ex)
             {
@@ -391,7 +603,7 @@ namespace AzureBlobStorageSampleApp
 
             async Task ExecuteGetGeoLocationCommand()
         {
-
+            //#TODO DATABASEENTRIES
             try
             {
                 ////MOVE TO SEPERATE COMMAND
@@ -407,13 +619,20 @@ namespace AzureBlobStorageSampleApp
                 if (_location != null)
                 {
                     Console.WriteLine($"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}, Altitude: {_location.Altitude}");
+
+                    this.Lat =  (float)_location.Latitude;
+                    this.Long =  (float)_location.Longitude;
+
                 } else
                 {
                     Console.WriteLine($"Exiting geolocation");
+                    this.Lat = (float)47.673988;
+                    this.Long =  (float)122.121513;
+
                 }
 
-                var lat = 47.673988;
-                var lon = -122.121513;
+                var localLat = 47.673988;
+                var longLong = -122.121513;
             
                 var placemarks = Task.Run(async () => await Geocoding.GetPlacemarksAsync(_location.Latitude, _location.Longitude)).Result;
 
@@ -424,6 +643,11 @@ namespace AzureBlobStorageSampleApp
                 {
                     var geocodeAddress = $"Location: {placemark.Locality}, {placemark.AdminArea}";
                     this.GeoString = geocodeAddress;
+
+                    this.City = placemark.Locality;
+                    this.State = placemark.AdminArea;
+                    this.Country = placemark.CountryName;
+                    this.CityState = placemark.Locality + placemark.AdminArea;
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -554,6 +778,8 @@ namespace AzureBlobStorageSampleApp
         //WITHOUT INTERNET
         async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
         {
+
+            photoBlob.
             if (IsPhotoSaving)
                 return;
 
@@ -577,6 +803,34 @@ namespace AzureBlobStorageSampleApp
 
                 if  (this.IsInternetConnectionActive == true)
                 {
+                    //PHOTOBLOB - SAVE THE VARIOUS ATTRIBUTES
+                    photoBlob.Tag1 = Tag1;
+                    photoBlob.Tag2 = Tag2;
+                    photoBlob.Tag3 = Tag3;
+                    photoBlob.Tag4 = Tag4;
+                    photoBlob.Tag5 = Tag5;
+                    photoBlob.Tag6 = Tag6;
+                    photoBlob.Tag7 = Tag7;
+                    photoBlob.Tag8 = Tag8;
+                    photoBlob.Tag9 = Tag9;
+                    photoBlob.Tag10 = Tag10;
+
+                    photoBlob.TagsSeperatedWithSpaces = TagsSeperatedWithSpaces;
+
+                    photoBlob.CustomTag1 = CustomTag1;
+                    photoBlob.CustomTag2 = CustomTag2;
+                    photoBlob.CustomTag3 = CustomTag3;
+                    photoBlob.CustomTag4 = CustomTag4;
+                    photoBlob.CustomTag5 = CustomTag5;
+                    photoBlob.CustomTag6 = CustomTag6;
+                    photoBlob.CustomTag7 = CustomTag7;
+                    photoBlob.CustomTag8 = CustomTag8;
+                    photoBlob.CustomTag9 = CustomTag9;
+                    photoBlob.CustomTag10 = CustomTag10;
+
+                    photoBlob.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces;
+                    photoBlob.CreatedAtString = CreatedAtString;
+
                     var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
                     if (photo is null)
@@ -603,6 +857,10 @@ namespace AzureBlobStorageSampleApp
 
                     var currentTime = DateTimeOffset.UtcNow;
 
+
+                    //PHOTO - SAVE THE VARIOUS ATTRIBUTES
+
+
                     var photo = new PhotoModel() { 
                     
                         Title = photoTitle,
@@ -610,7 +868,61 @@ namespace AzureBlobStorageSampleApp
                         Url = LocalPhotoPathRelevant,
                         CreatedAt = currentTime,
                         //UpdatedAt = currentTime,
+                        Tag1 = Tag1,
+                        Tag2 = Tag2,
+                        Tag3 = Tag3,
+                        Tag4 = Tag4,
+                        Tag5 = Tag5,
+                        Tag6 = Tag6,
+                        Tag7 = Tag7,
+                        Tag8 = Tag8,
+                        Tag9 = Tag9,
+                        Tag10 = Tag10,
+
+                        TagsSeperatedWithSpaces = TagsSeperatedWithSpaces,
+
+                        CustomTag1 = CustomTag1,
+                        CustomTag2 = CustomTag2,
+                        CustomTag3 = CustomTag3,
+                        CustomTag4 = CustomTag4,
+                        CustomTag5 = CustomTag5,
+                        CustomTag6 = CustomTag6,
+                        CustomTag7 = CustomTag7,
+                        CustomTag8 = CustomTag8,
+                        CustomTag9 = CustomTag9,
+                        CustomTag10 = CustomTag10,
+
+                        CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
+                        CreatedAtString = CreatedAtString,
                     };
+                        //photo.photoTag1 = Tag1,
+                        //photo.Tag2 = Tag2,
+                        //photo.Tag3 = Tag3,
+                        //photo.Tag4 = Tag4,
+                        //photo.Tag5 = Tag5,
+                        //photo.Tag6 = Tag6,
+                        //photo.Tag7 = Tag7;
+                        //photo.Tag8 = Tag8,
+                        //photo.Tag9 = Tag9,
+                        //photo.Tag10 = Tag10,
+
+                        //photo.TagsSeperatedWithSpaces = TagsSeperatedWithSpaces,
+
+                        //photo.Tag1 = Tag1,
+                        //photo.Tag2 = Tag2,
+                        //photo.Tag3 = Tag3,
+                        //photo.Tag4 = Tag4,
+                        //photo.Tag5 = Tag5,
+                        //photo.Tag6 = Tag6,
+                        //photo.Tag7 = Tag7,
+                        //photo.Tag8 = Tag8,
+                        //photo.Tag9 = Tag9,
+                        //photo.Tag10 = Tag10,
+
+                        photo.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
+                        photo.CreatedAtString = CustomTagsSeperatedWithSpaces,
+
+
                         await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
                         OnSavePhotoCompleted();
                 }
@@ -637,7 +949,7 @@ namespace AzureBlobStorageSampleApp
 
             var tempByteArray = ConvertStreamToByteArrary(mediaFile.GetStream());
 
-            PhotoBlob = new PhotoBlobModel
+            this.PhotoBlob = new PhotoBlobModel
             {
                 Image = ConvertStreamToByteArrary(mediaFile.GetStream())
             };
@@ -808,6 +1120,7 @@ namespace AzureBlobStorageSampleApp
             foreach (var tagName in analysis.Tags.Select(t => t.Name))
             {
                 newStringBuilder.Append($"#{tagName} ");
+
             }
 
             var combinedTagString = newStringBuilder.ToString();
@@ -815,29 +1128,160 @@ namespace AzureBlobStorageSampleApp
 
             this.TagsCombinedString = trimCombinedString;
 
+            //TagsCombinedStringWithoutTag
+            var newStringBuilderWithoutTag = new StringBuilder();
+
+            //foreach (var metaData in result.ResultMetadata)
+
+            //foreach (var tagName in analysis.Tags.Select(t => t.Name))
+            //{
+            //    newStringBuilderWithoutTag.Append($"{tagName} ");
+
+            //}
+
+
+            //for (int i = 0; i < 10; i++)
+            //for ((var tagName in analysis.Tags.Select(t => t.Name))
+            //{
+            //    newStringBuilderWithoutTag.Append($"{tagName} ");
+
+            //}
+
+            for (int i = 0; i < analysis.Tags.Count ; i++)
+            {
+                var itemTagName = analysis.Tags[i].Name;
+                newStringBuilderWithoutTag.Append($"{itemTagName} ");
+
+                switch (i+1)
+                      {
+                          case 1:
+                              this.Tag1 = itemTagName;
+                              break;
+                          case 2:
+                              this.Tag2 = itemTagName;
+                              break;
+                          case 3:
+                              this.Tag3 = itemTagName;
+                              break;
+                          case 4:
+                              this.Tag4 = itemTagName;
+                              break;
+                          case 5:
+                              this.Tag5 = itemTagName;
+                              break;
+                          case 6:
+                              this.Tag6 = itemTagName;
+                              break;
+                          case 7:
+                              this.Tag7 = itemTagName;
+                              break;
+                          case 8:
+                              this.Tag8 = itemTagName;
+                              break;
+                          case 9:
+                              this.Tag9 = itemTagName;
+                              break;
+                          case 10:
+                              this.Tag10 = itemTagName;
+                              break;
+                          default:
+                              Console.WriteLine("Default case");
+                              break;
+                }
+            }
+
+            var combinedTagStringWithoutTag = newStringBuilderWithoutTag.ToString();
+            var trimCombinedStringWithoutTag = combinedTagStringWithoutTag.Trim();
+
+                       //this.TagsCombinedString = trimCombinedString;
+
+            this.TagsSeperatedWithSpaces  = trimCombinedStringWithoutTag;
+
+
             //TagsListOfStrings
         }
 
         // Display the most relevant caption for the image
+        //private void DisplayCustomVisionResults(IEnumerable<ImageTagPredictionModel> tagList)
         private void DisplayCustomVisionResults(IEnumerable<ImageTagPredictionModel> tagList)
         {
             StringBuilder stringOfTags = new StringBuilder();
 
+
             if (tagList == null)
                 stringOfTags.Append($"No tags found");
             else
-                //stringOfTags.Append($"Custom tags: ");
-            foreach (var tagItem in tagList)
-            {
-                stringOfTags.Append($"#{tagItem.Tag} ");
-                //Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
+            { 
+                //TAGS WITH #
+                foreach (var tagItem in tagList)
+                {
+                    stringOfTags.Append($"#{tagItem.Tag} ");
+                    //Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
+                }
+
+                var combinedTagString = stringOfTags.ToString();
+                var trimCombinedString = combinedTagString.Trim();
+
+                this.CustomVisionTagsCombinedString = trimCombinedString;
+
+                //TAGS WITHOUT # TO BE SAVED
+                StringBuilder stringOfTagsWithoutHashes = new StringBuilder();
+
+                //foreach (var tagItem in tagList)
+                //{
+                //    stringOfTagsWithoutHashes.Append($"#{tagItem.Tag} ");
+                //    //Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
+                //}
+
+                //var combinedTagStringWithoutHashes = stringOfTagsWithoutHashes.ToString();
+                //var trimCombinedStringWithoutHashes = combinedTagStringWithoutHashes.Trim();
+
+                //this.CustomTagsSeperatedWithSpaces = trimCombinedStringWithoutHashes;
+
+                for (int i = 0; i < tagList.Count(); i++)
+                {
+                    var itemTagName = analysis.Tags[i].Name;
+                    stringOfTagsWithoutHashes.Append($"{itemTagName} ");
+
+                    switch (i+1)
+                    {
+                          case 1:
+                              this.CustomTag1 = itemTagName;
+                              break;
+                          case 2:
+                              this.CustomTag2 = itemTagName;
+                              break;
+                          case 3:
+                              this.CustomTag3 = itemTagName;
+                              break;
+                          case 4:
+                              this.CustomTag4 = itemTagName;
+                              break;
+                          case 5:
+                              this.CustomTag5 = itemTagName;
+                              break;
+                          case 6:
+                              this.CustomTag6 = itemTagName;
+                              break;
+                          case 7:
+                              this.CustomTag7 = itemTagName;
+                              break;
+                          case 8:
+                              this.CustomTag8 = itemTagName;
+                              break;
+                          case 9:
+                              this.CustomTag9 = itemTagName;
+                              break;
+                          case 10:
+                              this.CustomTag10 = itemTagName;
+                              break;
+                          default:
+                              Console.WriteLine("Default case");
+                              break;
+                    }
+                }
+
             }
-
-            var combinedTagString = stringOfTags.ToString();
-            var trimCombinedString = combinedTagString.Trim();
-
-            this.CustomVisionTagsCombinedString = trimCombinedString;
-
         }
 
         private IEnumerable<ImageTagPredictionModel> GetBestTagList(MediaFile file)
