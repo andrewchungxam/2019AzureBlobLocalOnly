@@ -24,6 +24,14 @@ namespace AzureBlobStorageSampleApp.Shared
         public string Url { get; set; }
         public string Title { get; set; }
 
+        public float Lat { get;set;}
+        public float Long { get;set;}
+
+        public string City {get;set;}
+        public string LocationState {get;set;}
+        public string Country {get;set;}
+        public string CityState {get;set;}
+
         public string Tag1 { get;set;}
         public string Tag2 { get;set;}
         public string Tag3 { get;set;}

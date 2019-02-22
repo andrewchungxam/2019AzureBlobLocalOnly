@@ -8,7 +8,7 @@
         public float Long { get;set;}
 
         public string City {get;set;}
-        public string State {get;set;}
+        public string LocationState {get;set;}
         public string Country {get;set;}
         public string CityState {get;set;}
 

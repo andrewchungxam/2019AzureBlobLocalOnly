@@ -308,11 +308,11 @@ namespace AzureBlobStorageSampleApp
         }
            
 
-        string _state;
-        public string State
+        string _locationState;
+        public string LocationState
         {
-            get => _state;
-            set => SetProperty(ref _state, value);
+            get => _locationState;
+            set => SetProperty(ref _locationState, value);
         }
 
         string _country;
@@ -645,7 +645,7 @@ namespace AzureBlobStorageSampleApp
                     this.GeoString = geocodeAddress;
 
                     this.City = placemark.Locality;
-                    this.State = placemark.AdminArea;
+                    this.LocationState = placemark.AdminArea;
                     this.Country = placemark.CountryName;
                     this.CityState = placemark.Locality + placemark.AdminArea;
                 }
@@ -779,7 +779,6 @@ namespace AzureBlobStorageSampleApp
         async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
         {
 
-            photoBlob.
             if (IsPhotoSaving)
                 return;
 
@@ -830,6 +829,14 @@ namespace AzureBlobStorageSampleApp
 
                     photoBlob.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces;
                     photoBlob.CreatedAtString = CreatedAtString;
+
+                    photoBlob.City = City;
+                    photoBlob.LocationState = LocationState;
+                    photoBlob.Country = LocationState;
+                    photoBlob.CityState = LocationState;
+
+                    Lat = Lat;
+                    Long = Long;
 
                     var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
@@ -894,6 +901,15 @@ namespace AzureBlobStorageSampleApp
 
                         CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
                         CreatedAtString = CreatedAtString,
+
+                        City = City,
+                        LocationState = LocationState,
+                        Country = LocationState,
+                        CityState = LocationState,
+
+                        Lat = Lat,
+                        Long = Long,
+
                     };
                         //photo.photoTag1 = Tag1,
                         //photo.Tag2 = Tag2,
@@ -919,8 +935,8 @@ namespace AzureBlobStorageSampleApp
                         //photo.Tag9 = Tag9,
                         //photo.Tag10 = Tag10,
 
-                        photo.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
-                        photo.CreatedAtString = CustomTagsSeperatedWithSpaces,
+                        //photo.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
+                        //photo.CreatedAtString = CustomTagsSeperatedWithSpaces,
 
 
                         await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);

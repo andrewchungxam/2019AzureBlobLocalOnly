@@ -10,11 +10,11 @@ namespace AzureBlobStorageSampleApp.Shared
         public string Id { get; set; }
 
 
-        public double Lat { get;set;}
-        public double Long { get;set;}
+        public float Lat { get;set;}
+        public float Long { get;set;}
 
         public string City {get;set;}
-        public string State {get;set;}
+        public string LocationState {get;set;}
         public string Country {get;set;}
         public string CityState {get;set;}
 
