@@ -45,11 +45,5 @@ namespace AzureBlobStorageSampleApp.Shared
 
         public string CreatedAtString { get; set; }
 
-);
-
-
-
-
-
     }
 }
