@@ -66,6 +66,8 @@ namespace AzureBlobStorageSampleApp
         //async Task ExecuteSearchCommand()
         void ExecuteSearchCommand()
         {   
+            if(IsBusy)
+                return;
             IsBusy = true;
 
              try
@@ -81,7 +83,6 @@ namespace AzureBlobStorageSampleApp
                     //return;
 
                     AllPhotosList.Clear();
-                    //var searchResults = await indexClient.Documents.SearchAsync<Monkey>(text);
                     foreach (var individualPhotos in unsortedPhotosList)
                     {
                         AllPhotosList.Add(individualPhotos);
@@ -89,34 +90,23 @@ namespace AzureBlobStorageSampleApp
                 }
                 else
                 { 
-                    //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x=>x.Title.Any()));//.Where(x => x.Title.Contains(this.SearchString)));
 
-                    //AllPhotosList.Clear();
-                    //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x => x.Title.Contains(this.SearchString)));
-                    //return; 
-
-                        //async Task AzureSearch(string text)
-                        //{
-                            AllPhotosList.Clear();
-                            //var searchResults = await indexClient.Documents.SearchAsync<Monkey>(text);
-                            foreach (var individualPhotos in unsortedPhotosList.Where(x=>x.Title.Contains(this.SearchString)))
-                            {
-                                AllPhotosList.Add(individualPhotos);
-                            }
-                        //}
-
-//https://github.com/xamarin/xamarin-forms-samples/bl                ob/master/WebServices/        AzureSea                rch/MonkeyAp                p/ViewModel        s/Search        PageViewModel.cs        
-//https://github        .com/xamarin/xamarin-forms-samples/blob/        master/WebServices/AzureSearch/MonkeyApp/ViewModels/SearchPageViewModel.cs
+                    AllPhotosList.Clear();
+                    foreach (var individualPhotos in unsortedPhotosList.Where(x=>x.Title.Contains(this.SearchString)))
+                    {
+                        AllPhotosList.Add(individualPhotos);
+                    }
                 }
-                        
-                catch (Exception e)
-                {
-                    DebugServices.Log(e);
-                }        
-                finally
-                { 
-                    IsBusy = false;
-                }
+
+            }   
+            catch (Exception e)
+            {
+                DebugServices.Log(e);
+            }        
+            finally
+            { 
+                IsBusy = false;
+            }
         }
 
         async Task ExecuteRefreshCommand()
@@ -156,100 +146,3 @@ namespace AzureBlobStorageSampleApp
         #endregion
     }
 }
-
-
-//voi        d ExecuteSearchCommand()
-//        {
-//             try
-//                    {
-//                //throw new NotImplemen        tedException();
-//                                //AllPhotosList = new Observab        leCollection<PhotoMod        el>(unsortedPhotosList.Where(x => x.Title == "Camo Jacket"));
-//                //Al        lPhotosList = new ObservableCo        llection<PhotoModel>        (unsortedPhotosList.Joi        n(x => x.Title                 == "Camo Jacket"));
-//                        //AllPhotosL        ist = new ObservableCol        lection<PhotoModel>(u        nsortedPhotosList.Where(x => x.Title.Contains("Camo")));
-
-//                        if(this.SearchString==" ")
-//                        { 
-//                    AllPhotosList = new ObservableCollection<PhotoM        odel>(unsortedPhotosList.Where(x=>x.Title.Any                ()));//.Where(x => x.Title.Conta        ins(this.SearchString)));
-//                    return;
-//                }
-//                        else
-//                                { 
-//                                                AllPhoto        sList = new ObservableCollection<PhotoModel>(unsorte        dPhotosList.Where(x=>x.Title.Any()));//.Wher        e(x => x.        Title.Contains(this.SearchString)));
-
-//                            AllPhotosList.Clear();
-//                            AllPhotosList = new ObservableCollection<Pho        toModel>(unsortedPhotosList        .Where(x => x.Title.Contains(this.Sear        chString)));
-//                    return; 
-
-//                                                        async Task AzureSearch(string te                xt)
-//                                        {
-//                                                            Monkeys.Clear();
-
-//                                                    var se        archResults = await indexClient.Documents.Se        archAsync<Monkey>(text);
-//                                                    foreach (SearchResul                t<Monkey> result in searchResults.Results        )
-//                                                            {
-//                                                Monkeys.Add(new Monkey
-//                                                                {
-//                                                                            Name = resu        lt.Document.Name,
-//                                                                    Location = result.Do        cument.Location,
-//                                                            Details = result.Document.Details,
-//                                                                            ImageUrl = result.Document.ImageUrl
-//                                                                });
-//                                                    }
-//                                        }
-
-//                         
-                   
-
-             va
-        lList =         new List<
-        >();
-
-/
-                                       
-        ([..])
-
-
-           
-
-
-
-
-                        {
-//                                                  originalList.Add(someInstance);
-//                                        }
-
-//                  
-                   
-
-        leColle
-        eClass> uiCollection = ne
-        bleColl
-        meClass>(originalList);
-
-
-
-
-///
-        github.
-
-        n/x
-
-
-
-
-        samples/blob/master/WebServices/AzureSearch/MonkeyApp/ViewModels/SearchPageViewModel.cs
-
-////https://github.com/xamarin/xamarin-forms-samples/blob/master/WebServices/AzureSearch/MonkeyApp/ViewModels/SearchPageViewModel.cs
-        //        }
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        DebugServices.Log(e);
-        //    }
-
-        //}
-
-
-
-
