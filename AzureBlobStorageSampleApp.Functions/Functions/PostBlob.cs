@@ -56,11 +56,13 @@ namespace AzureBlobStorageSampleApp.Functions
 
                 photo.City = imageBlob.City;
                 photo.LocationState = imageBlob.LocationState;
-                photo.Country = imageBlob.LocationState;
+                photo.Country = imageBlob.Country;
                 photo.CityState = imageBlob.LocationState;
 
                 photo.Lat = imageBlob.Lat;
                 photo.Long = imageBlob.Long;
+
+                photo.BarcodeString = imageBlob.BarcodeString;
 
 
                 await PhotoDatabaseService.InsertPhoto(photo).ConfigureAwait(false);

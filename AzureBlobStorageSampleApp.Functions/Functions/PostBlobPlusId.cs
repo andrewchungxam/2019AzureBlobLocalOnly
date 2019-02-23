@@ -65,11 +65,13 @@ namespace AzureBlobStorageSampleApp.Functions
 
                 photo.City = imageBlobWithId.City;
                 photo.LocationState = imageBlobWithId.LocationState;
-                photo.Country = imageBlobWithId.LocationState;
+                photo.Country = imageBlobWithId.Country;
                 photo.CityState = imageBlobWithId.LocationState;
 
                 photo.Lat = imageBlobWithId.Lat;
                 photo.Long = imageBlobWithId.Long;
+
+                photo.BarcodeString = imageBlobWithId.BarcodeString;
 
                 //BELIEVE THIS SHOULD BE TO ADJUST UPDATE TIME
                 await PhotoDatabaseService.InsertUpdatedPhoto(photo).ConfigureAwait(false);

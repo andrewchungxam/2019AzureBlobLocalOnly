@@ -57,5 +57,8 @@ namespace AzureBlobStorageSampleApp.Shared
 
         public string CreatedAtString { get; set; }
 
+        public string BarcodeString { get;set;}
+
+
     }
 }

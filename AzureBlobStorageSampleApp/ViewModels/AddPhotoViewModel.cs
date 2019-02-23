@@ -590,8 +590,9 @@ namespace AzureBlobStorageSampleApp
             try
             {
                 this.PhotoCreatedDateTime = DateTimeOffset.UtcNow;
-                //            var dateTimeNowStringJpg = $"{DateTime.Now.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.jpg";
-                this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.FilteredDate";
+                //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.FilteredDate";
+                //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"))}.FilteredDateTime";
+                this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
 
             }
             catch (Exception ex)
@@ -835,8 +836,10 @@ namespace AzureBlobStorageSampleApp
                     photoBlob.Country = LocationState;
                     photoBlob.CityState = LocationState;
 
-                    Lat = Lat;
-                    Long = Long;
+                    photoBlob.Lat = Lat;
+                    photoBlob.Long = Long;
+
+                    photoBlob.BarcodeString = BarcodeString;
 
                     var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
 
@@ -904,11 +907,13 @@ namespace AzureBlobStorageSampleApp
 
                         City = City,
                         LocationState = LocationState,
-                        Country = LocationState,
+                        Country = Country,
                         CityState = LocationState,
 
                         Lat = Lat,
                         Long = Long,
+
+                        BarcodeString = BarcodeString, 
 
                     };
                         //photo.photoTag1 = Tag1,
@@ -1361,6 +1366,7 @@ namespace AzureBlobStorageSampleApp
             }
 
             var dateTimeNowStringJpg = $"{DateTime.Now.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.jpg";
+
             //var directoryName = "LocalPhotosFolder";
             //can switch to 
             var directoryName = App.LocalPhotoFolderName;
