@@ -124,17 +124,24 @@ namespace AzureBlobStorageSampleApp
 
         void HandleItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var listView = sender as ListView;
-            var selectedPhoto = e?.SelectedItem as PhotoModel;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                var listView = sender as ListView;
+                var selectedPhoto = e?.SelectedItem as PhotoModel;
 
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                if (selectedPhoto != null)
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
-                    listView.SelectedItem = null;
-                }
-            });
+                    if (selectedPhoto != null)
+                    {
+                        await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
+                        listView.SelectedItem = null;
+                    }
+                });
+            } else
+            { 
+                DisplayAlert("Please connect to the Internet ", string.Empty, "OK");
+            }
+
         }
 
         void HandleAddContactButtonClicked(object sender, EventArgs e) =>
