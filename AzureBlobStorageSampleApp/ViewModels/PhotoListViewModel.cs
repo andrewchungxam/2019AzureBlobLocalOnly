@@ -72,11 +72,6 @@ namespace AzureBlobStorageSampleApp
 
              try
             {
-                //throw new NotImplementedException();
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x => x.Title == "Camo Jacket"));
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Join(x => x.Title == "Camo Jacket"));
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x => x.Title.Contains("Camo")));
-
                 if(this.SearchString==" ")
                 { 
                     //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x=>x.Title.Any()));//.Where(x => x.Title.Contains(this.SearchString)));
