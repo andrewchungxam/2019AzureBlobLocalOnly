@@ -7,8 +7,10 @@ namespace AzureBlobStorageSampleApp.Shared
     public enum MenuItemType
     {
         Browse,
+        GeographyListPage,
+        DateTimeListPage,
+        BarcodeListPage,
         About,
-        GeographyListPage
     }
 
     public class HomeMenuItem

@@ -187,8 +187,14 @@ namespace AzureBlobStorageSampleApp
                         break;
                    case nameof(PhotoModel.BarcodeString):
                         //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x => x.BarcodeString == $"{valueToSortBy}" ));
-                        currentPhotoList = unsortedPhotosList.Where(x => x.BarcodeString == $"{valueToSortBy}" );
-
+                        //currentPhotoList = unsortedPhotosList.Where(x => x.BarcodeString == $"{valueToSortBy}" );
+                        if (filterValue.ValueToSortBy == null) { 
+                        //valueToSortBy = "";
+                        currentPhotoList = unsortedPhotosList.Where(x => string.IsNullOrEmpty(x.BarcodeString));
+                        }
+                        else { 
+                        currentPhotoList = unsortedPhotosList.Where(x => !string.IsNullOrEmpty(x.BarcodeString));
+                        }
 
                         //Expression<Func<PhotoModel, bool>> whereClause = a => a.CityState == $"{valueToSortBy}";
                         break;

@@ -22,8 +22,11 @@ namespace AzureBlobStorageSampleApp.Pages
             menuItems = new List<HomeMenuItem>
             {
                 new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
                 new HomeMenuItem {Id = MenuItemType.GeographyListPage, Title="Location"},
+                new HomeMenuItem {Id = MenuItemType.DateTimeListPage, Title="Date"},
+                new HomeMenuItem {Id = MenuItemType.BarcodeListPage, Title="Barcode"},
+                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
+
             };
 
             ListViewMenu.ItemsSource = menuItems;

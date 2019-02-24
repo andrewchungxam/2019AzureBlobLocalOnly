@@ -47,7 +47,7 @@ namespace AzureBlobStorageSampleApp
 
             _geographyListView = new ListView(ListViewCachingStrategy.RecycleElement)
             {
-                ItemTemplate = new DataTemplate(typeof(GeoViewCell)),
+                //ItemTemplate = new DataTemplate(typeof(GeoViewCell)),
                 IsPullToRefreshEnabled = true,
                 BackgroundColor = Color.Transparent,
                 AutomationId = AutomationIdConstants.PhotoListView,
@@ -60,6 +60,28 @@ namespace AzureBlobStorageSampleApp
 
             //#TODO - modifying size of cells
             _geographyListView.HasUnevenRows = true;
+
+            switch (filterValueModel.PropertyToSort) 
+                {
+                   case nameof(PhotoModel.CityState):
+                        _geographyListView.ItemTemplate = new DataTemplate(typeof(GeoViewCell));
+                        
+                        break;
+                   case nameof(PhotoModel.BarcodeString):
+                        _geographyListView.ItemTemplate = new DataTemplate(typeof(BarcodeViewCell));
+                   
+                        break;
+                   case nameof(PhotoModel.CreatedAtString):
+                        _geographyListView.ItemTemplate = new DataTemplate(typeof(DateTimeWithTimeViewCell));
+
+                        break;
+                    default :
+                        _geographyListView.ItemTemplate = new DataTemplate(typeof(PhotoViewCell));
+
+
+                        break;
+                } 
+
 
 
 

@@ -33,11 +33,17 @@ namespace AzureBlobStorageSampleApp.Pages
                     case (int)MenuItemType.Browse:
                         MenuPages.Add(id, new NavigationPage(new PhotoListPage()));
                         break;
-                    case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                        break;
                     case (int)MenuItemType.GeographyListPage:
                         MenuPages.Add(id, new NavigationPage(new GeographyListPage()));
+                        break;
+                    case (int)MenuItemType.DateTimeListPage:
+                        MenuPages.Add(id, new NavigationPage(new DateTimeListPage()));
+                        break;
+                    case (int)MenuItemType.BarcodeListPage:
+                        MenuPages.Add(id, new NavigationPage(new BarcodeListPage()));
+                        break;
+                    case (int)MenuItemType.About:
+                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
                 }
             }

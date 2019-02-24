@@ -26,6 +26,36 @@ namespace AzureBlobStorageSampleApp
         }
     }
 
+    public class AddBarcodeAndNoBarcodeWordConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            if (value == null)
+                return $"No Barcode";
+            var barcode = (string)value;
+            return $"Barcode: {barcode}";
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IsBarcodeAndNoBarcodeWordConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            if (value == null)
+                return $"No Barcode";
+            var barcode = (string)value;
+            return $"Barcode available";
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            throw new NotImplementedException();
+        }
+    }
+
     public class DateTimeOffSetToString : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
@@ -50,6 +80,58 @@ namespace AzureBlobStorageSampleApp
         }
     }
 
+
+
+    public class DateTimeOffSetMDYToString : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            if (value == null)
+                return string.Empty;
+            var dateTimeOffsetValue = (DateTimeOffset)value;
+            if (dateTimeOffsetValue == DateTimeOffset.MinValue)
+                return string.Empty;
+
+            var dtString = dateTimeOffsetValue.ToLocalTime().ToString("MMMM d, yyyy", new CultureInfo("en-US"));
+            //return $"Barcode: {barcode}";
+
+                                    //CreatedDateTimeString = DateTime.Now.ToString("MMM d h:mm tt", new CultureInfo("en-US")),
+
+            return dtString;
+
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+    public class DateTimeOffSetMDYHTToString : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            if (value == null)
+                return string.Empty;
+            var dateTimeOffsetValue = (DateTimeOffset)value;
+            if (dateTimeOffsetValue == DateTimeOffset.MinValue)
+                return string.Empty;
+
+            var dtString = dateTimeOffsetValue.ToLocalTime().ToString("MMMM d, yyyy h:mm tt", new CultureInfo("en-US"));
+
+            //return $"Barcode: {barcode}";
+
+                                    //CreatedDateTimeString = DateTime.Now.ToString("MMM d h:mm tt", new CultureInfo("en-US")),
+
+            return dtString;
+
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 
+            throw new NotImplementedException();
+        }
+    }
 
     public class CheckAndModifyLocalFiles : IValueConverter
     {
