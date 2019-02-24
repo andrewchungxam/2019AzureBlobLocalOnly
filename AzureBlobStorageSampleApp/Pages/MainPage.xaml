@@ -4,12 +4,13 @@
         <pages:MenuPage />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <NavigationPage>
+        <NavigationPage BarBackgroundColor="#E3553D" BarTextColor="White">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png" />
                 </OnPlatform>
             </NavigationPage.Icon>
+
             <x:Arguments>
                 <pages:PhotoListPage />
             </x:Arguments>
