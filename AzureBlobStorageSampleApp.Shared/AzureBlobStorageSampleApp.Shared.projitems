@@ -18,5 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\PhotoBlobModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\JsonService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PhotoBlobModelPlusId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HomeMenuItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FilterValueModel.cs" />
   </ItemGroup>
 </Project>

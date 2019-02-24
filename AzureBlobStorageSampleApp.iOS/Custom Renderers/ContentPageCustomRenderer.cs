@@ -6,10 +6,13 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+using AzureBlobStorageSampleApp;
 using AzureBlobStorageSampleApp.iOS;
 
 
-[assembly: ExportRenderer(typeof(ContentPage), typeof(ContentPageCustomRenderer))]
+//[assembly: ExportRenderer(typeof(ContentPage), typeof(ContentPageCustomRenderer))]
+
+[assembly: ExportRenderer(typeof(SpecialContentPage), typeof(ContentPageCustomRenderer))]
 namespace AzureBlobStorageSampleApp.iOS
 {
     public class ContentPageCustomRenderer : PageRenderer

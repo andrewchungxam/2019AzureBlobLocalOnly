@@ -648,7 +648,7 @@ namespace AzureBlobStorageSampleApp
                     this.City = placemark.Locality;
                     this.LocationState = placemark.AdminArea;
                     this.Country = placemark.CountryName;
-                    this.CityState = placemark.Locality + placemark.AdminArea;
+                    this.CityState = placemark.Locality + ", " + placemark.AdminArea;
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -833,8 +833,8 @@ namespace AzureBlobStorageSampleApp
 
                     photoBlob.City = City;
                     photoBlob.LocationState = LocationState;
-                    photoBlob.Country = LocationState;
-                    photoBlob.CityState = LocationState;
+                    photoBlob.Country = Country;
+                    photoBlob.CityState = CityState;
 
                     photoBlob.Lat = Lat;
                     photoBlob.Long = Long;
@@ -908,7 +908,7 @@ namespace AzureBlobStorageSampleApp
                         City = City,
                         LocationState = LocationState,
                         Country = Country,
-                        CityState = LocationState,
+                        CityState = CityState,
 
                         Lat = Lat,
                         Long = Long,

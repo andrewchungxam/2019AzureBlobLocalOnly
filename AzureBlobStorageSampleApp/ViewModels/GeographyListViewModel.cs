@@ -1,3 +1,5 @@
+﻿using System;
+
 using System;
 using System.Linq;
 using System.Windows.Input;
@@ -11,28 +13,25 @@ using System.Collections.Generic;
 
 namespace AzureBlobStorageSampleApp
 {
-    public class PhotoListViewModel : BaseViewModel
+    public class GeographyListViewModel : BaseViewModel
     {
         #region Fields
         bool _isRefreshing;
         bool _isBusy;
         ICommand _refreshCommand;
         ObservableCollection<PhotoModel> _allPhotosList;
-        String _searchString;
         List<PhotoModel> unsortedPhotosList;
-
         #endregion
 
         #region Properties
         public ICommand RefreshCommand => _refreshCommand ??
             (_refreshCommand = new AsyncCommand(ExecuteRefreshCommand, continueOnCapturedContext: false));
 
-        public PhotoListViewModel()
+        public GeographyListViewModel()
         {
-            //SearchCommand = new Command(async () => await ExecuteSearchCommand());
-            SearchCommand = new Command(() => ExecuteSearchCommand());
+            //SearchCommand = new Command(() => ExecuteSearchCommand());
 
-            }
+        }
 
         public ObservableCollection<PhotoModel> AllPhotosList
         {
@@ -46,12 +45,6 @@ namespace AzureBlobStorageSampleApp
             set => SetProperty(ref _isRefreshing, value);
         }
 
-        public String SearchString
-        {
-            get => _searchString;
-            set => SetProperty(ref _searchString, value);
-        }
-
         public bool IsBusy
         {
             get => _isBusy;
@@ -63,52 +56,6 @@ namespace AzureBlobStorageSampleApp
         #endregion
 
         #region Methods
-        //async Task ExecuteSearchCommand()
-        void ExecuteSearchCommand()
-        {   
-            if(IsBusy)
-                return;
-            IsBusy = true;
-
-             try
-            {
-                if(this.SearchString==" ")
-                { 
-                    //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x=>x.Title.Any()));//.Where(x => x.Title.Contains(this.SearchString)));
-                    //return;
-
-                    AllPhotosList.Clear();
-                    foreach (var individualPhotos in unsortedPhotosList)
-                    {
-                        AllPhotosList.Add(individualPhotos);
-                    }
-                }
-                else
-                { 
-
-                    AllPhotosList.Clear();
-                    foreach (var individualPhotos in unsortedPhotosList.Where(x=>x.Title.Contains(this.SearchString)))
-                    {
-                        AllPhotosList.Add(individualPhotos);
-                    }
-                }
-
-                //INCORPORATING AZURE SEARCH
-                //https://github.com/xamarin/xamarin-forms-samples/blob/master/WebServices/AzureSearch/MonkeyApp/ViewModels/SearchPageViewModel.cs
-                //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/search/azure-search
-
-                //ALTERNATIVE WAY WOULD BE TO ASSIGN THE OBSERVABLE COLLECTION TO THE ITEMS PROPERTY IN THE PAGE (AND *NOT* BY ASSIGNING THE OBSERVABLE PROPERTY TO A NEW COLLECTION)
-
-            }   
-            catch (Exception e)
-            {
-                DebugServices.Log(e);
-            }        
-            finally
-            { 
-                IsBusy = false;
-            }
-        }
 
         async Task ExecuteRefreshCommand()
         {
@@ -125,13 +72,22 @@ namespace AzureBlobStorageSampleApp
                     await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
                 }
 
-
-
                 //var unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
                 unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
 
+                    //var filteredBySubjectThenSelectOnlyOneOfEachSubject = filteredBySubject.GroupBy(x => x.LessonNumber).Select(y => y.First()); //ToList();
+
+                    ////foreach (var item in filteredItems)
+                    //foreach (var item in filteredBySubjectThenSelectOnlyOneOfEachSubject)
+                    //{
+                    //    Items.Add(item);
+                    //}
+
+
+
                 //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.OrderBy(x => x.Title));
-                AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.OrderBy(x => x.CreatedAt));
+                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.OrderBy(x => x.CreatedAt));
+                AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()));
 
                 await oneSecondTaskToShowSpinner.ConfigureAwait(false);
             }
