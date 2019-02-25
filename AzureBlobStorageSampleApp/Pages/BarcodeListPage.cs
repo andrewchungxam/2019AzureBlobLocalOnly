@@ -151,7 +151,7 @@ namespace AzureBlobStorageSampleApp
                         var filterValueModel = new FilterValueModel() 
                         { 
                             PropertyToSort = _propertyToSort,
-                            ValueToSortBy = selectedPhoto.CreatedAtString,
+                            ValueToSortBy = selectedPhoto.BarcodeString,
 
                         };
 

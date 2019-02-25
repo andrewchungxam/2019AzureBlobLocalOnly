@@ -29,6 +29,7 @@ using System.Text;
 using Microsoft.Cognitive.CustomVision.Prediction.Models;
 using Microsoft.Cognitive.CustomVision.Prediction;
 using System.Globalization;
+using FFImageLoading.Helpers.Exif;
 
 namespace AzureBlobStorageSampleApp
 {
@@ -958,6 +959,7 @@ namespace AzureBlobStorageSampleApp
             }
         }
 
+        //PICK PHOTO
         //BarcodeDecoding barcode;
         async Task ExecuteGetPhotoCommand()
         {
@@ -974,6 +976,52 @@ namespace AzureBlobStorageSampleApp
             {
                 Image = ConvertStreamToByteArrary(mediaFile.GetStream())
             };
+
+
+            //////
+
+            //File.WR   (SAVE WITH PROPER NAME // THEN SET THE URL PROPERTY OF PAGE TO EQUAL THE "RELEVANT PATH PROPERTY")
+            
+            var pathNameFile = mediaFile.Path;
+
+//"/var/mobile/Containers/Data/Application/1655FB04-8633-43AF-90AB-E514F28556C6/Documents/temp/IMG_20190225_132848.jpg"
+
+            var tempFolderPlusFileName = pathNameFile.Replace(App.LocalAppDirectoryPath, "");
+            var newFileName = tempFolderPlusFileName.Replace("temp/" , "");
+
+            string destFolderIncludingLocalPhotoFolder = System.IO.Path.Combine(App.LocalAppDirectoryPath, App.LocalPhotoFolderName);
+            string destFilePath = System.IO.Path.Combine(destFolderIncludingLocalPhotoFolder, newFileName);
+
+            var finalFolderPath = App.LocalAppDirectoryPath + App.LocalPhotoFolderName;
+
+    //Should be the following
+    //"/var/mobile/Containers/Data/Application/1655FB04-8633-43AF-90AB-E514F28556C6/Documents/LocalPhotosFolder
+            if (!System.IO.Directory.Exists(finalFolderPath))
+            {
+                System.IO.Directory.CreateDirectory(finalFolderPath);
+            }
+
+            System.IO.File.Copy(pathNameFile, destFilePath, true);
+
+            var directoryName = App.LocalPhotoFolderName;
+
+            this.LocalPhotoPathRelevant = $"{App.LocalPhotoFolderName}/{newFileName}";
+            
+
+//////////////////////////////////////////////////////////////////////////
+
+
+            //DON'T NEED THIS
+            //this.LocalPhotoPath = pathNameFile;
+
+            //var tempByteArray = ConvertStreamToByteArrary(mediaFile.GetStream());
+
+            //PhotoBlob = new PhotoBlobModel
+            //{
+            //    Image = ConvertStreamToByteArrary(mediaFile.GetStream())
+            //};
+
+            ////////
 
 
             if (IsComputerVision || IsCustomVision)
@@ -1010,7 +1058,7 @@ namespace AzureBlobStorageSampleApp
         }
 
 
-
+        //TAKE PHOTO
         async Task ExecuteTakePhotoCommand()
         {
             await this.StampDateTime();
@@ -1259,9 +1307,15 @@ namespace AzureBlobStorageSampleApp
 
                 //this.CustomTagsSeperatedWithSpaces = trimCombinedStringWithoutHashes;
 
-                for (int i = 0; i < tagList.Count(); i++)
+                var ListTagList = tagList.ToList();
+
+                //for (int i = 0; i < tagList.Count(); i++)
+                for (int i = 0; i < ListTagList.Count(); i++)
                 {
-                    var itemTagName = analysis.Tags[i].Name;
+                    //var itemTagName = analysis.Tags[i].Name;
+
+                    var itemTagName = ListTagList[i].Tag;    ; //analysis.Tags[i].Name;
+
                     stringOfTagsWithoutHashes.Append($"{itemTagName} ");
 
                     switch (i+1)
@@ -1301,6 +1355,11 @@ namespace AzureBlobStorageSampleApp
                               break;
                     }
                 }
+
+                var combinedTagStringWithoutHashes = stringOfTagsWithoutHashes.ToString();
+                var trimCombinedStringWithoutHashes = combinedTagStringWithoutHashes.Trim();
+
+                this.CustomTagsSeperatedWithSpaces = trimCombinedStringWithoutHashes;
 
             }
         }
@@ -1354,7 +1413,7 @@ namespace AzureBlobStorageSampleApp
 
         }
 
-
+        //TAKE PHOTO
         async Task<MediaFile> GetMediaFileFromCamera()
         {
             await CrossMedia.Current.Initialize().ConfigureAwait(false);
@@ -1399,6 +1458,7 @@ namespace AzureBlobStorageSampleApp
             return await mediaFileTCS.Task;
         }
 
+        //PICK PHOTO
         async Task<MediaFile> GetStoredMediaFileFromCamera()
         {
             await CrossMedia.Current.Initialize().ConfigureAwait(false);
@@ -1417,9 +1477,10 @@ namespace AzureBlobStorageSampleApp
                 {
                     PhotoSize = PhotoSize.Small,
                     //DefaultCamera = CameraDevice.Rear,
-
+                   
                 }));
             });
+
 
             return await mediaFileTCS.Task;
         }

@@ -76,7 +76,7 @@ namespace AzureBlobStorageSampleApp
 
                 //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()));
 
-                AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CreatedAtString).Select(y => y.First()));
+                AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CreatedAtString).Select(y => y.First()).OrderBy(x=>x.CreatedAtString));
 
                 await oneSecondTaskToShowSpinner.ConfigureAwait(false);
             }
