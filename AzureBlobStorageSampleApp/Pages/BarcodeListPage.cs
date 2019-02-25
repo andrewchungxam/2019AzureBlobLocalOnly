@@ -79,7 +79,7 @@ namespace AzureBlobStorageSampleApp
 
 
 
-            Title = PageTitles.PhotoListPage;
+            Title = PageTitles.BarcodePage;
 
             var stackLayout = new StackLayout();
             stackLayout.Children.Add(_photosListView);

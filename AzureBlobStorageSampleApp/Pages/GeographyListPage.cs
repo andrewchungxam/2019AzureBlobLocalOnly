@@ -54,7 +54,7 @@ namespace AzureBlobStorageSampleApp.Pages
 
 
 
-            Title = PageTitles.PhotoListPage;
+            Title = PageTitles.LocationPage;
 
             var stackLayout = new StackLayout();
             stackLayout.Children.Add(_geographyListView);
