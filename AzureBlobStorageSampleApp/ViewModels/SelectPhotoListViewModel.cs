@@ -200,7 +200,7 @@ namespace AzureBlobStorageSampleApp
                         break;
                    case nameof(PhotoModel.CreatedAtString):
                         //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.Where(x => x.CreatedAtString == $"{valueToSortBy}" ));
-                        currentPhotoList = unsortedPhotosList.Where(x => x.CreatedAtString == $"{valueToSortBy}" );
+                        currentPhotoList = unsortedPhotosList.OrderBy(x=>x.CreatedAt).Where(x => x.CreatedAtString == $"{valueToSortBy}" );
                         break;
                     default :
                         currentPhotoList = unsortedPhotosList;

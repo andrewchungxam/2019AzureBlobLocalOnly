@@ -8,6 +8,7 @@ using AsyncAwaitBestPractices.MVVM;
 using AzureBlobStorageSampleApp.Shared;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace AzureBlobStorageSampleApp
 {
@@ -23,6 +24,8 @@ namespace AzureBlobStorageSampleApp
                 //public Command SearchCommand { get; set; }
 
         ICommand _searchCommand;
+        ICommand _checkInternetConnectionCommand;
+
 
 
         #endregion
@@ -33,6 +36,11 @@ namespace AzureBlobStorageSampleApp
 
         public ICommand SearchCommand => _searchCommand ??
             (_searchCommand = new AsyncCommand(ExecuteSearchCommand, continueOnCapturedContext: false));
+
+        public ICommand CheckInternetConnectionCommand => _checkInternetConnectionCommand ??
+            (_checkInternetConnectionCommand = new Command(ExecuteCheckInternetConnectionCommand)); //, continueOnCapturedContext: false));
+
+ 
 
         public PhotoListViewModel()
         {
@@ -157,6 +165,18 @@ namespace AzureBlobStorageSampleApp
             finally
             {
                 IsRefreshing = false;
+            }
+        }
+
+       private void ExecuteCheckInternetConnectionCommand()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                this.IsInternetConnectionActive = true;
+            }
+            else
+            { 
+                this.IsInternetConnectionActive = false;
             }
         }
         #endregion
