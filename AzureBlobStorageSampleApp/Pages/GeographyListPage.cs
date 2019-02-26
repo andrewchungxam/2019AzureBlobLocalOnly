@@ -78,7 +78,7 @@ namespace AzureBlobStorageSampleApp.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            ViewModel.CheckInternetConnectionCommand.Execute(null);
             Device.BeginInvokeOnMainThread(_geographyListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 

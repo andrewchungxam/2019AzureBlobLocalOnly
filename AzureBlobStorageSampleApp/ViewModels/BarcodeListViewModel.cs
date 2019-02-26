@@ -22,6 +22,7 @@ using AsyncAwaitBestPractices.MVVM;
 using AzureBlobStorageSampleApp.Shared;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace AzureBlobStorageSampleApp
 {
@@ -31,6 +32,8 @@ namespace AzureBlobStorageSampleApp
         bool _isRefreshing;
         bool _isBusy;
         ICommand _refreshCommand;
+        ICommand _checkInternetConnectionCommand;
+
         ObservableCollection<PhotoModel> _allPhotosList;
         List<PhotoModel> unsortedPhotosList;
         #endregion
@@ -38,6 +41,9 @@ namespace AzureBlobStorageSampleApp
         #region Properties
         public ICommand RefreshCommand => _refreshCommand ??
             (_refreshCommand = new AsyncCommand(ExecuteRefreshCommand, continueOnCapturedContext: false));
+
+        public ICommand CheckInternetConnectionCommand => _checkInternetConnectionCommand ??
+            (_checkInternetConnectionCommand = new Command(ExecuteCheckInternetConnectionCommand)); //, continueOnCapturedContext: false));
 
         public BarcodeListViewModel()
         {
@@ -99,6 +105,18 @@ namespace AzureBlobStorageSampleApp
             finally
             {
                 IsRefreshing = false;
+            }
+        }
+
+       private void ExecuteCheckInternetConnectionCommand()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                this.IsInternetConnectionActive = true;
+            }
+            else
+            { 
+                this.IsInternetConnectionActive = false;
             }
         }
         #endregion

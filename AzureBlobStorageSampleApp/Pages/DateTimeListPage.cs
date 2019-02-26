@@ -90,7 +90,7 @@ namespace AzureBlobStorageSampleApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            ViewModel.CheckInternetConnectionCommand.Execute(null);
             Device.BeginInvokeOnMainThread(_photosListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
