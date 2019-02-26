@@ -66,7 +66,7 @@ namespace AzureBlobStorageSampleApp.Functions
                 photo.City = imageBlobWithId.City;
                 photo.LocationState = imageBlobWithId.LocationState;
                 photo.Country = imageBlobWithId.Country;
-                photo.CityState = imageBlobWithId.LocationState;
+                photo.CityState = imageBlobWithId.CityState;
 
                 photo.Lat = imageBlobWithId.Lat;
                 photo.Long = imageBlobWithId.Long;

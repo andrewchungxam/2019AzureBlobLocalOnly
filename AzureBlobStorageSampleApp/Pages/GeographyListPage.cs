@@ -1,3 +1,5 @@
+﻿using System;
+
 using System;
 
 using Xamarin.Forms;
@@ -5,23 +7,25 @@ using Xamarin.Forms;
 using AzureBlobStorageSampleApp.Shared;
 using AzureBlobStorageSampleApp.Mobile.Shared;
 using Xamarin.Essentials;
+using AzureBlobStorageSampleApp.ViewModels;
+using AzureBlobStorageSampleApp.Shared.Models;
 
 namespace AzureBlobStorageSampleApp.Pages
 {
-    public class PhotoListPage : BaseContentPage<PhotoListViewModel>
+    public class GeographyListPage : BaseContentPage<GeographyListViewModel>
     {
         #region Constant Fields
-        readonly ListView _photosListView;
-        readonly ToolbarItem _addPhotosButton;
+        readonly ListView _geographyListView;
 
-        SearchBar searchBar;
-
-
+        readonly string _propertyToSort;
         #endregion
 
         #region Constructors
-        public PhotoListPage()
+        public GeographyListPage()
         {
+
+            _propertyToSort = nameof(PhotoModel.CityState);
+
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             { 
                 ViewModel.IsInternetConnectionActive = true;
@@ -31,50 +35,29 @@ namespace AzureBlobStorageSampleApp.Pages
                ViewModel.IsInternetConnectionActive = false;
             }
 
-            searchBar = new SearchBar
+            _geographyListView = new ListView(ListViewCachingStrategy.RecycleElement)
             {
-                Placeholder = "Enter search term",
-                //SearchCommand = new Command(() => { Console.WriteLine($"Search command"); })
-                BackgroundColor = Color.Wheat,
-
-            };
-
-            searchBar.SetBinding(SearchBar.SearchCommandProperty, nameof(ViewModel.SearchCommand));
-            searchBar.SetBinding(SearchBar.TextProperty, nameof(ViewModel.SearchString));   
-
-            _addPhotosButton = new ToolbarItem
-            {
-                Text = "+",
-                AutomationId = AutomationIdConstants.AddPhotoButton
-            };
-            _addPhotosButton.Clicked += HandleAddContactButtonClicked;
-
-            ToolbarItems.Add(_addPhotosButton);
-
-            _photosListView = new ListView(ListViewCachingStrategy.RecycleElement)
-            {
-                ItemTemplate = new DataTemplate(typeof(PhotoViewCell)),
+                ItemTemplate = new DataTemplate(typeof(GeoViewCell)),
                 IsPullToRefreshEnabled = true,
                 BackgroundColor = Color.Transparent,
                 AutomationId = AutomationIdConstants.PhotoListView,
                 SeparatorVisibility = SeparatorVisibility.None
             };
-            _photosListView.ItemSelected += HandleItemSelected;
-            _photosListView.SetBinding(ListView.IsRefreshingProperty, nameof(ViewModel.IsRefreshing));
-            _photosListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
-            _photosListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
+            _geographyListView.ItemSelected += HandleItemSelected;
+            _geographyListView.SetBinding(ListView.IsRefreshingProperty, nameof(ViewModel.IsRefreshing));
+            _geographyListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
+            _geographyListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
 
             //#TODO - modifying size of cells
-            _photosListView.HasUnevenRows = true;
+            _geographyListView.HasUnevenRows = true;
 
 
 
 
-            Title = PageTitles.PhotoListPage;
+            Title = PageTitles.LocationPage;
 
             var stackLayout = new StackLayout();
-            stackLayout.Children.Add(searchBar);
-            stackLayout.Children.Add(_photosListView);
+            stackLayout.Children.Add(_geographyListView);
 
 
             var relativeLayout = new RelativeLayout();
@@ -96,9 +79,12 @@ namespace AzureBlobStorageSampleApp.Pages
         {
             base.OnAppearing();
 
-            Device.BeginInvokeOnMainThread(_photosListView.BeginRefresh);
+            Device.BeginInvokeOnMainThread(_geographyListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
+//            if ((ViewModel.AllPhotosList != null) && (ViewModel.AllPhotosList.Count == 0))
+////                ViewModel.LoadItemsCommand.Execute(null);
+                //ViewModel.RefreshCommand.Execute(null);
         }
 
         protected override void OnDisappearing()
@@ -133,7 +119,19 @@ namespace AzureBlobStorageSampleApp.Pages
                 {
                     if (selectedPhoto != null)
                     {
-                        await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
+                        //SWITCH AFER TEST - KEEP THIS FOR NOW
+//                      await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
+//                        await Navigation.PushAsync(new SelectedPhotoListPage(selectedPhoto));
+
+                        var filterValueModel = new FilterValueModel() 
+                        { 
+                            PropertyToSort = _propertyToSort,
+                            ValueToSortBy = selectedPhoto.CityState,
+
+                        };
+
+                        await Navigation.PushAsync(new SelectPhotoListPage(filterValueModel));
+  
                         listView.SelectedItem = null;
                     }
                 });
@@ -144,8 +142,8 @@ namespace AzureBlobStorageSampleApp.Pages
 
         }
 
-        void HandleAddContactButtonClicked(object sender, EventArgs e) =>
-            Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
+        //void HandleAddContactButtonClicked(object sender, EventArgs e) =>
+            //Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
         #endregion
     }
 }

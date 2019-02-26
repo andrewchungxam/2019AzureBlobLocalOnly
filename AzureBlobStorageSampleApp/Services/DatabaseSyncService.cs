@@ -126,7 +126,8 @@ namespace AzureBlobStorageSampleApp
                            //Image = ConvertStreamToByteArrary(mediaFile.GetStream())
                             CreatedAt = photo.CreatedAt,
                             Image = bytes,
-                            Id = photo.Id
+                            Id = photo.Id,
+                            CreatedAtString = photo.CreatedAtString,
                         };
 
                         try

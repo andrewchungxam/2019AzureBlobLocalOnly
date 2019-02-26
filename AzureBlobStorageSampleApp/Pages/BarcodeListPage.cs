@@ -1,3 +1,30 @@
+﻿//using System;
+//using Xamarin.Forms;
+//namespace AzureBlobStorageSampleApp.Pages
+//{
+//    public class BarcodeListPage : ContentPage
+//    {
+//        public BarcodeListPage()
+//        {
+//        }
+//    }
+//}
+
+
+////using System;
+////using Xamarin.Forms;
+////namespace AzureBlobStorageSampleApp
+////{
+////    public class DateTimeListPage : ContentPage
+////    {
+////        public DateTimeListPage()
+////        {
+////        }
+////    }
+////}
+
+using System;
+
 using System;
 
 using Xamarin.Forms;
@@ -5,23 +32,25 @@ using Xamarin.Forms;
 using AzureBlobStorageSampleApp.Shared;
 using AzureBlobStorageSampleApp.Mobile.Shared;
 using Xamarin.Essentials;
+using AzureBlobStorageSampleApp.ViewModels;
+using AzureBlobStorageSampleApp.Shared.Models;
 
-namespace AzureBlobStorageSampleApp.Pages
+namespace AzureBlobStorageSampleApp
 {
-    public class PhotoListPage : BaseContentPage<PhotoListViewModel>
+    public class BarcodeListPage : BaseContentPage<BarcodeListViewModel>
     {
         #region Constant Fields
         readonly ListView _photosListView;
-        readonly ToolbarItem _addPhotosButton;
 
-        SearchBar searchBar;
-
-
+        readonly string _propertyToSort;
         #endregion
 
         #region Constructors
-        public PhotoListPage()
+        public BarcodeListPage()
         {
+
+            _propertyToSort = nameof(PhotoModel.BarcodeString);
+
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             { 
                 ViewModel.IsInternetConnectionActive = true;
@@ -31,29 +60,9 @@ namespace AzureBlobStorageSampleApp.Pages
                ViewModel.IsInternetConnectionActive = false;
             }
 
-            searchBar = new SearchBar
-            {
-                Placeholder = "Enter search term",
-                //SearchCommand = new Command(() => { Console.WriteLine($"Search command"); })
-                BackgroundColor = Color.Wheat,
-
-            };
-
-            searchBar.SetBinding(SearchBar.SearchCommandProperty, nameof(ViewModel.SearchCommand));
-            searchBar.SetBinding(SearchBar.TextProperty, nameof(ViewModel.SearchString));   
-
-            _addPhotosButton = new ToolbarItem
-            {
-                Text = "+",
-                AutomationId = AutomationIdConstants.AddPhotoButton
-            };
-            _addPhotosButton.Clicked += HandleAddContactButtonClicked;
-
-            ToolbarItems.Add(_addPhotosButton);
-
             _photosListView = new ListView(ListViewCachingStrategy.RecycleElement)
             {
-                ItemTemplate = new DataTemplate(typeof(PhotoViewCell)),
+                ItemTemplate = new DataTemplate(typeof(IsBarcodeOrNotBarcodeViewCell)),
                 IsPullToRefreshEnabled = true,
                 BackgroundColor = Color.Transparent,
                 AutomationId = AutomationIdConstants.PhotoListView,
@@ -70,10 +79,9 @@ namespace AzureBlobStorageSampleApp.Pages
 
 
 
-            Title = PageTitles.PhotoListPage;
+            Title = PageTitles.BarcodePage;
 
             var stackLayout = new StackLayout();
-            stackLayout.Children.Add(searchBar);
             stackLayout.Children.Add(_photosListView);
 
 
@@ -99,6 +107,9 @@ namespace AzureBlobStorageSampleApp.Pages
             Device.BeginInvokeOnMainThread(_photosListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
+//            if ((ViewModel.AllPhotosList != null) && (ViewModel.AllPhotosList.Count == 0))
+////                ViewModel.LoadItemsCommand.Execute(null);
+                //ViewModel.RefreshCommand.Execute(null);
         }
 
         protected override void OnDisappearing()
@@ -133,7 +144,19 @@ namespace AzureBlobStorageSampleApp.Pages
                 {
                     if (selectedPhoto != null)
                     {
-                        await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
+                        //SWITCH AFER TEST - KEEP THIS FOR NOW
+//                      await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
+//                        await Navigation.PushAsync(new SelectedPhotoListPage(selectedPhoto));
+
+                        var filterValueModel = new FilterValueModel() 
+                        { 
+                            PropertyToSort = _propertyToSort,
+                            ValueToSortBy = selectedPhoto.BarcodeString,
+
+                        };
+
+                        await Navigation.PushAsync(new SelectPhotoListPage(filterValueModel));
+  
                         listView.SelectedItem = null;
                     }
                 });
@@ -144,8 +167,9 @@ namespace AzureBlobStorageSampleApp.Pages
 
         }
 
-        void HandleAddContactButtonClicked(object sender, EventArgs e) =>
-            Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
+        //void HandleAddContactButtonClicked(object sender, EventArgs e) =>
+            //Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
         #endregion
     }
 }
+

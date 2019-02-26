@@ -1,4 +1,5 @@
-﻿using Xamarin.Essentials;
+﻿using AzureBlobStorageSampleApp.Pages;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AzureBlobStorageSampleApp
@@ -12,7 +13,8 @@ namespace AzureBlobStorageSampleApp
 
         public App(){
             this.SetLocalAppDirectory();
-            MainPage = new BaseNavigationPage(new PhotoListPage());
+            //MainPage = new BaseNavigationPage(new PhotoListPage());
+            MainPage = new MainPage();
 
         }  
 

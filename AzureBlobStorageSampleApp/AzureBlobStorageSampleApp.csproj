@@ -46,6 +46,17 @@
     <ItemGroup>
       <ProjectReference Include="..\ScannerHelperLibrary\ScannerHelperLibrary.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Pages\MainPage.xaml.cs">
+        <DependentUpon>MainPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\MenuPage.xaml.cs">
+        <DependentUpon>MenuPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Pages\AboutPage.xaml.cs">
+        <DependentUpon>AboutPage.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
     <Import Project="..\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems')" />
     <Import Project="..\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems" Label="Shared" Condition="Exists('..\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems')" />
 </Project>

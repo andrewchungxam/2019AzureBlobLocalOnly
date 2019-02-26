@@ -10,7 +10,9 @@ using AzureBlobStorageSampleApp.Effects;
 
 namespace AzureBlobStorageSampleApp
 {
-    public class AddPhotoPage : BaseContentPageWithPublicViewModel<AddPhotoViewModel>
+    //public class AddPhotoPage : BaseContentPageWithPublicViewModel<AddPhotoViewModel>
+
+    public class AddPhotoPage : BaseSpecialContentPageWithPublicViewModel<AddPhotoViewModel>
     {
         #region Constant Fields
         readonly ToolbarItem _saveToobarItem, _cancelToolbarItem;
