@@ -7,7 +7,7 @@ namespace AzureBlobStorageSampleApp.Services
     {
         private const string subscriptionKey = "";
 
-        public ComputerVisionClient computerVisionClient; // = new ComputerVisionClient(new ApiKeyServiceClientCredentials(subscriptionKey)
+        public ComputerVisionClient computerVisionClient; 
 
         public ComputerVisionService()
         {
