@@ -26,7 +26,6 @@ namespace AzureBlobStorageSampleApp.Pages
                 new HomeMenuItem {Id = MenuItemType.DateTimeListPage, Title="Date"},
                 new HomeMenuItem {Id = MenuItemType.BarcodeListPage, Title="Barcode"},
                 new HomeMenuItem {Id = MenuItemType.About, Title="About" },
-
             };
 
             ListViewMenu.ItemsSource = menuItems;

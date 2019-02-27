@@ -1,7 +1,5 @@
 ﻿using System;
 
-using System;
-
 using Xamarin.Forms;
 
 using AzureBlobStorageSampleApp.Shared;

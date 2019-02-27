@@ -16,7 +16,6 @@ namespace AzureBlobStorageSampleApp.Pages
 
         SearchBar searchBar;
 
-
         #endregion
 
         #region Constructors
@@ -64,11 +63,7 @@ namespace AzureBlobStorageSampleApp.Pages
             _photosListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
             _photosListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
 
-            //#TODO - modifying size of cells
             _photosListView.HasUnevenRows = true;
-
-
-
 
             Title = PageTitles.PhotoListPage;
 
@@ -76,9 +71,7 @@ namespace AzureBlobStorageSampleApp.Pages
             stackLayout.Children.Add(searchBar);
             stackLayout.Children.Add(_photosListView);
 
-
             var relativeLayout = new RelativeLayout();
-            //relativeLayout.Children.Add(searchBar, _photosListView,
 
             relativeLayout.Children.Add(stackLayout,
                                        Constraint.Constant(0),
