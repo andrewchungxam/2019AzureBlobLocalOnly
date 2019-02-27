@@ -50,7 +50,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AzureBlobStorageSampleApp.iOS\AzureBlobStorageSampleApp.iOS.csproj">
       <Project>{23DC86F6-BDBD-45F0-AFDA-1914DAB289F6}</Project>
-      <Name>LOCALAzureApp.iOS</Name>
+      <Name>AzureBlobStorageSampleApp.iOS</Name>
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>

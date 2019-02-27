@@ -1,16 +1,4 @@
-﻿//using System;
-//namespace AzureBlobStorageSampleApp.Pages
-//{
-//    public class BarcodeListViewModel
-//    {
-//        public BarcodeListViewModel()
-//        {
-//        }
-//    }
-//}
-
-
-using System;
+﻿using System;
 
 using System;
 using System.Linq;
@@ -22,6 +10,7 @@ using AsyncAwaitBestPractices.MVVM;
 using AzureBlobStorageSampleApp.Shared;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 
 namespace AzureBlobStorageSampleApp
 {
@@ -31,6 +20,8 @@ namespace AzureBlobStorageSampleApp
         bool _isRefreshing;
         bool _isBusy;
         ICommand _refreshCommand;
+        ICommand _checkInternetConnectionCommand;
+
         ObservableCollection<PhotoModel> _allPhotosList;
         List<PhotoModel> unsortedPhotosList;
         #endregion
@@ -39,10 +30,11 @@ namespace AzureBlobStorageSampleApp
         public ICommand RefreshCommand => _refreshCommand ??
             (_refreshCommand = new AsyncCommand(ExecuteRefreshCommand, continueOnCapturedContext: false));
 
+        public ICommand CheckInternetConnectionCommand => _checkInternetConnectionCommand ??
+            (_checkInternetConnectionCommand = new Command(ExecuteCheckInternetConnectionCommand)); //, continueOnCapturedContext: false));
+
         public BarcodeListViewModel()
         {
-            //SearchCommand = new Command(() => ExecuteSearchCommand());
-
         }
 
         public ObservableCollection<PhotoModel> AllPhotosList
@@ -75,18 +67,14 @@ namespace AzureBlobStorageSampleApp
 
             try
             {
-//                var oneSecondTaskToShowSpinner = Task.Delay(1000);
                 var oneSecondTaskToShowSpinner = Task.Delay(700);
 
 
                 if (this.IsInternetConnectionActive == true) { 
-                //NOT SURE WE NEED THIS ONE IN THE LOCAL ONLY SCNEARIO
                     await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
                 }
 
                 unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
-
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()));
 
                 AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.BarcodeString).Select(y => y.First()));
 
@@ -99,6 +87,18 @@ namespace AzureBlobStorageSampleApp
             finally
             {
                 IsRefreshing = false;
+            }
+        }
+
+       private void ExecuteCheckInternetConnectionCommand()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                this.IsInternetConnectionActive = true;
+            }
+            else
+            { 
+                this.IsInternetConnectionActive = false;
             }
         }
         #endregion

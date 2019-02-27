@@ -27,15 +27,10 @@ namespace AzureBlobStorageSampleApp.Functions
                 var imageBlobWithId = await JsonService.DeserializeMessage<PhotoBlobModelPlusId>(req).ConfigureAwait(false);
                 var photo = await PhotosBlobStorageService.SavePhoto(imageBlobWithId.Image, title).ConfigureAwait(false);
 
-                //ADDING ID COMPATABILITY
                 photo.Id = imageBlobWithId.Id;
-
-                //ALREADY ID COMPATIBLE
-                //await PhotoDatabaseService.InsertPhoto(photo).ConfigureAwait(false);
 
                 photo.CreatedAt = imageBlobWithId.CreatedAt;
 
-                //CARRY OVER ADDIIONAL FIELDS
                 photo.Tag1 = imageBlobWithId.Tag1;
                 photo.Tag2 = imageBlobWithId.Tag2;
                 photo.Tag3 = imageBlobWithId.Tag3;
@@ -73,9 +68,7 @@ namespace AzureBlobStorageSampleApp.Functions
 
                 photo.BarcodeString = imageBlobWithId.BarcodeString;
 
-                //BELIEVE THIS SHOULD BE TO ADJUST UPDATE TIME
                 await PhotoDatabaseService.InsertUpdatedPhoto(photo).ConfigureAwait(false);
-
 
                 return new CreatedResult(photo.Url, photo);
             }

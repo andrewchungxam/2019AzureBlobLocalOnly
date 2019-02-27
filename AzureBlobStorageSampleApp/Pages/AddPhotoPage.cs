@@ -10,8 +10,6 @@ using AzureBlobStorageSampleApp.Effects;
 
 namespace AzureBlobStorageSampleApp
 {
-    //public class AddPhotoPage : BaseContentPageWithPublicViewModel<AddPhotoViewModel>
-
     public class AddPhotoPage : BaseSpecialContentPageWithPublicViewModel<AddPhotoViewModel>
     {
         #region Constant Fields
@@ -80,9 +78,6 @@ namespace AzureBlobStorageSampleApp
 
             _geoLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
@@ -91,64 +86,27 @@ namespace AzureBlobStorageSampleApp
 
             _dateTimeLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
 
             _dateTimeLabel.SetBinding(Label.TextProperty, nameof(ViewModel.PhotoCreatedDateTime), BindingMode.Default, new DateTimeOffSetToString());
 
-            //ViewModel.GeoString = "Paramus, NJ";
-
-            //var lat = 47.673988;
-            //var lon = -122.121513;
-
-            //var placemarks = Task.Run(async () => await Geocoding.GetPlacemarksAsync(lat, lon)).Result;
-
-            //var placemark = placemarks?.FirstOrDefault();
-
-            //if (placemark != null)
-            //{
-            //    var geocodeAddress =
-            //        $"AdminArea:       {placemark.AdminArea}\n" +
-            //        $"CountryCode:     {placemark.CountryCode}\n" +
-            //        $"CountryName:     {placemark.CountryName}\n" +
-            //        $"FeatureName:     {placemark.FeatureName}\n" +
-            //        $"Locality:        {placemark.Locality}\n" +
-            //        $"PostalCode:      {placemark.PostalCode}\n" +
-            //        $"SubAdminArea:    {placemark.SubAdminArea}\n" +
-            //        $"SubLocality:     {placemark.SubLocality}\n" +
-            //        $"SubThoroughfare: {placemark.SubThoroughfare}\n" +
-            //        $"Thoroughfare:    {placemark.Thoroughfare}\n";
-
-            //    //Console.WriteLine(geocodeAddress);
-            //    ViewModel.GeoString = geocodeAddress;
-            //}
-
             _takePhotoButton = new Button
             {
                 Text = "Take Photo",
                 BackgroundColor = ColorConstants.NavigationBarBackgroundColor,
-                //TextColor = ColorConstants.TextColor
                 TextColor = Color.White,
             };
 
             _takePhotoButton.SetBinding(Button.CommandProperty, nameof(ViewModel.TakePhotoCommand));
 
-            //TODO - only one Command binding per Button
-            //_takePhotoButton.SetBinding(Button.CommandProperty, nameof(ViewModel.GetGeoLocationCommand));
-
-            //_takePhotoButton.SetBinding(IsEnabledProperty, new Binding(nameof(ViewModel.IsPhotoSaving), BindingMode.Default, new InverseBooleanConverter(), ViewModel.IsPhotoSaving));
             _takePhotoButton.SetBinding(Button.IsVisibleProperty, nameof(ViewModel.IsBarcode), BindingMode.Default, new InverseBooleanConverter());
 
 
             _getPhotoGalleryButton = new Button
             { 
                 Text = "Pick Photo",
-                //BackgroundColor = ColorConstants.NavigationBarBackgroundColor,
-                //TextColor = ColorConstants.TextColor    
                 BackgroundColor = Color.White,
                 TextColor = ColorConstants.NavigationBarBackgroundColor,                        
             };
@@ -158,9 +116,6 @@ namespace AzureBlobStorageSampleApp
 
             _scanLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
@@ -169,37 +124,10 @@ namespace AzureBlobStorageSampleApp
 
             _scannerSwitch = new Switch
             {
-                //BackgroundColor = ColorConstants.NavigationBarBackgroundColor,
-                //effects:SwitchChangeColor.FalseColor="#AAEE00",
-                //effects:SwitchChangeColor.TrueColor="Blue",
-               //IsToggled = false,
-                
-
-
-
-
-
             };
-            //_computerVisionSwitch,
-            //_customVisionSwitch,
-
-
-            //_scannerSwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(Color.Blue));
-
-
-
-            //            _scannerSwitch.Effects.Add(Effect.Resolve("MyCompany.SwitchChangeColor"));
-
-            //_scannerSwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(Color.Red));
 
             _scannerSwitch.Effects.Add(Effect.Resolve("MyCompany.SwitchChangeColorEffect"));
 
-            //_scannerSwitch.SetBinding(SwitchChangeColor.FalseColorProperty, nameof(ViewModel.BlueColor));
-
-            //ViewModel.BlueColor = Color.Blue;
-
-
-//CHANGE BACK
             _scannerSwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(ViewModel.SwitchTrueColor));
             _scannerSwitch.SetBinding(Switch.IsToggledProperty , nameof(ViewModel.IsBarcode));
 
@@ -208,29 +136,23 @@ namespace AzureBlobStorageSampleApp
             _computerVisionSwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(ViewModel.SwitchTrueColor));
             _computerVisionSwitch.SetBinding(Switch.IsToggledProperty , nameof(ViewModel.IsComputerVision));
 
-
             _customVisionSwitch = new Switch() { };
             _customVisionSwitch.Effects.Add(Effect.Resolve("MyCompany.SwitchChangeColorEffect"));
             _customVisionSwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(ViewModel.SwitchTrueColor));
             _customVisionSwitch.SetBinding(Switch.IsToggledProperty , nameof(ViewModel.IsCustomVision));
 
-                        _computerVisionSwitch.SetBinding(Switch.IsVisibleProperty, nameof(ViewModel.IsInternetConnectionActive) );
-
+            _computerVisionSwitch.SetBinding(Switch.IsVisibleProperty, nameof(ViewModel.IsInternetConnectionActive) );
             _customVisionSwitch.SetBinding(Switch.IsVisibleProperty, nameof(ViewModel.IsInternetConnectionActive) );
-
 
             _photoGallerySwitch = new Switch() { };
             _photoGallerySwitch.Effects.Add(Effect.Resolve("MyCompany.SwitchChangeColorEffect"));
             _photoGallerySwitch.SetBinding(SwitchChangeColor.TrueColorProperty, nameof(ViewModel.SwitchTrueColor));
             _photoGallerySwitch.SetBinding(Switch.IsToggledProperty , nameof(ViewModel.IsPhotoGallery));
 
-
             ViewModel.SwitchTrueColor = ColorConstants.NavigationBarBackgroundColor;
-
 
             _scannerSwitchLabel = new Label(){ 
                 Text = "Barcode Reader",
-                //TextColor = ColorConstants.TextColor,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center
@@ -238,7 +160,6 @@ namespace AzureBlobStorageSampleApp
 
             _photoGalleryLabel = new Label(){ 
                 Text = "Pick Photo",
-                //TextColor = ColorConstants.TextColor,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center
@@ -246,7 +167,6 @@ namespace AzureBlobStorageSampleApp
 
             _computerVisionSwitchLabel = new Label(){ 
                 Text = "Vision AI",
-                //TextColor = ColorConstants.TextColor,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center
@@ -256,7 +176,6 @@ namespace AzureBlobStorageSampleApp
 
             _customVisionSwitchLabel = new Label(){ 
                 Text = "Custom AI",
-                //TextColor = ColorConstants.TextColor,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.Center
@@ -294,14 +213,10 @@ namespace AzureBlobStorageSampleApp
             {
                 Text = "Scan barcode + Take photo",
                 BackgroundColor = ColorConstants.NavigationBarBackgroundColor,
-                //TextColor = ColorConstants.TextColor,
                 TextColor = Color.White,
             };
 
             _takeScanButton.SetBinding(Button.IsVisibleProperty, nameof(ViewModel.IsBarcode) );
-
-
-            //_takeScanButton.SetBinding(Button.CommandProperty, nameof(ViewModel.TakeScanCommand));
 
             _takeScanButton.Clicked += async delegate
             {
@@ -309,13 +224,8 @@ namespace AzureBlobStorageSampleApp
                 await Navigation.PushAsync(customScanPage);
             };
 
-            //_takePhotoButton.SetBinding(IsEnabledProperty, new Binding(nameof(ViewModel.IsPhotoSaving), BindingMode.Default, new InverseBooleanConverter(), ViewModel.IsPhotoSaving));
-
             _descriptionCaptionLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
@@ -326,23 +236,15 @@ namespace AzureBlobStorageSampleApp
 
             _colorLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-
-            //_colorLabel.SetBinding(Label.TextProperty, nameof(ViewModel.ForegroundColor), BindingMode.Default, new AddColorWordConverter());
 
             _colorLabel.SetBinding(Label.TextProperty, nameof(ViewModel.ColorsCombinedString), BindingMode.Default, new AddColorWordConverter());
             _colorLabel.SetBinding(Label.IsVisibleProperty, nameof(ViewModel.IsComputerVision));
 
             _objectDescription = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
@@ -353,9 +255,6 @@ namespace AzureBlobStorageSampleApp
 
             _tagsStringLabel = new Label
             {
-                //BackgroundColor = Color.White,
-                //TextColor = ColorConstants.TextColor,
-                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
@@ -365,9 +264,6 @@ namespace AzureBlobStorageSampleApp
 
            _customVisionTagsStringLabel = new Label
            {
-               //BackgroundColor = Color.White,
-               //TextColor = ColorConstants.TextColor,
-               //HorizontalOptions = LayoutOptions.FillAndExpand,
                 TextColor = Color.White,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
            };
@@ -409,35 +305,6 @@ namespace AzureBlobStorageSampleApp
 
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-
-                //Children = {
-                //    _photoImage,
-                //    _photoTitleEntry,
-                //    _takePhotoButton,
-                //    activityIndicator
-                //}
-
-
-
-
-            //Children = {
-                //    _photoImage,
-                //    _photoTitleEntry,
-                //    _scanLabel,
-                //    _geoLabel,
-                //    _descriptionCaptionLabel,
-                //    _objectDescription,
-                //    _colorLabel,
-                //    _tagsStringLabel,
-                //    _customVisionTagsStringLabel,
-                //    _takePhotoButton,
-                //    _takeScanButton,
-                //    //_scannerSwitch,
-                //    //_computerVisionSwitch,
-                //    //_customVisionSwitch,
-                //    gridLayout,
-                //    activityIndicator
-                //}
 
             Children = {
                     _photoImage,

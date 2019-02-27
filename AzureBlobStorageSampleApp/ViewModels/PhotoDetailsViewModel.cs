@@ -11,8 +11,6 @@ namespace AzureBlobStorageSampleApp
         Command<PhotoModel> _setPhotoCommand;
         PhotoModel _photo;
 
-
-
         #endregion
 
         #region Properties

@@ -28,8 +28,5 @@ namespace AzureBlobStorageSampleApp
         [Post("/PatchPhoto/{photoTitle}")]
         Task<PhotoModel> PatchPhoto([Body]PhotoModel photoModel, string photoTitle, [AliasAs("code")]string functionKey);
 
-        //[Post("/PostBlob/{photoTitle}")]
-        //Task<PhotoModel> PostPhotoBlob([Body]PhotoBlobModel photoBlob, string photoTitle);
-
     }
 }

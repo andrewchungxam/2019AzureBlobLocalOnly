@@ -18,9 +18,6 @@ namespace AzureBlobStorageSampleApp
 
             var (photosToPatchToLocalDatabase, photosToPatchToRemoteDatabase) = GetModelsThatNeedUpdating(photoListFromLocalDatabase, photoListFromRemoteDatabase, photosInBothDatabases);
 
-            //await SavePhotos(photosInRemoteDatabaseButNotStoredLocally.Concat(photosToPatchToLocalDatabase).ToList(), photosInLocalDatabaseButNotStoredRemotely.Concat(photosToPatchToRemoteDatabase).ToList());
-
-            //restructured away from previous parameters
             await SavePhotos(photosToPatchToRemoteDatabase,  photosToPatchToLocalDatabase, photosInRemoteDatabaseButNotStoredLocally, photosInLocalDatabaseButNotStoredRemotely);
         
             }
@@ -82,20 +79,7 @@ namespace AzureBlobStorageSampleApp
             return (modelsToPatchToLocalDatabase ?? new List<T>(),
                     modelsToPatchToRemoteDatabase ?? new List<T>());
         }
-
-        //static Task SavePhotos(List<PhotoModel> photosToSaveToLocalDatabase,
-        //                        List<PhotoModel> photosToSaveToRemoteDatabase)
-        //{
-        //    var savephotoTaskList = new List<Task>();
-
-        //    foreach (var photo in photosToSaveToLocalDatabase)
-        //        savephotoTaskList.Add(PhotoDatabase.SavePhoto(photo));
-
-        //    //ToDo Add Patch API
-
-        //    return Task.WhenAll(savephotoTaskList);
-        //}
-
+            
         async static Task SavePhotos(List<PhotoModel> photosToPatchToRemoteDatabase, 
                                     List<PhotoModel> photosToPatchToLocalDatabase,
                                  List<PhotoModel> photosToAddToLocalDatabase,
@@ -114,16 +98,9 @@ namespace AzureBlobStorageSampleApp
                      
                         var fullPathForFile = App.LocalAppDirectoryPath + photo.Url;
 
-                        //https://forums.xamarin.com/discussion/149063/how-to-convert-a-picture-path-to-mediafile
-                        //var bytes = File.ReadAllBytes(filePath);
-
                         var bytes = File.ReadAllBytes(fullPathForFile);
-
-                        //var tempByteArray = ConvertStreamToByteArrary(mediaFile.GetStream());
-
                         var photoBlobModPlusId = new PhotoBlobModelPlusId
                         {
-                           //Image = ConvertStreamToByteArrary(mediaFile.GetStream())
                             CreatedAt = photo.CreatedAt,
                             Image = bytes,
                             Id = photo.Id,
@@ -132,36 +109,14 @@ namespace AzureBlobStorageSampleApp
 
                         try
                         {
-
-                            //HitPostApi with PhotoBlob + photo.Title + Id // if ID not retained, then it create a totally new one and not patch the old one
                             var returnedPhoto = await APIService.PostPhotoBlobPlusId(photoBlobModPlusId, photo.Title);
-
-                            //                 Get back a PhotoModel photo
-                            //Locally Update (PATCH) this PhotoModelPhoto
-
-
-                            //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
-
-                            //if (returnedPhoto is null)
-                                //return Task;
-
-                            //SAVE calls INSERT OR REPLACE
                             PhotoDatabase.SavePhoto(returnedPhoto);
 
                         }
                         catch (Exception e)
                         {
-                            //OnSavePhotoFailed(e.Message);
                         }
            
-                        //var photo = new PhotoModel() 
-                        //{ 
-                        //    Title = photo.Title,
-                            
-
-                        //};
-                    //MAKE SURE TO UPDATE THESE TOO! IE. THESE LOCAL ONES NEED PATCHING.
-
                     }
             }
             foreach (var photo in photosToAddToLocalDatabase)

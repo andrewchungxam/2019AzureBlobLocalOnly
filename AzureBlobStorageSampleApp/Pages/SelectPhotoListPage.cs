@@ -1,18 +1,4 @@
-﻿//using System;
-//namespace AzureBlobStorageSampleApp.Pages
-//{
-//    public class SelectPhotoListPage
-//    {
-//        public SelectPhotoListPage()
-//        {
-//        }
-//    }
-//}
-
-
-using System;
-
-using System;
+﻿using System;
 
 using Xamarin.Forms;
 
@@ -47,18 +33,13 @@ namespace AzureBlobStorageSampleApp
 
             _geographyListView = new ListView(ListViewCachingStrategy.RecycleElement)
             {
-                //ItemTemplate = new DataTemplate(typeof(GeoViewCell)),
                 IsPullToRefreshEnabled = true,
                 BackgroundColor = Color.Transparent,
                 AutomationId = AutomationIdConstants.PhotoListView,
                 SeparatorVisibility = SeparatorVisibility.None
             };
             _geographyListView.ItemSelected += HandleItemSelected;
-            //_geographyListView.SetBinding(ListView.IsRefreshingProperty, nameof(ViewModel.IsRefreshing));
             _geographyListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
-            //_geographyListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
-
-            //#TODO - modifying size of cells
             _geographyListView.HasUnevenRows = true;
 
             switch (filterValueModel.PropertyToSort) 
@@ -111,17 +92,9 @@ namespace AzureBlobStorageSampleApp
         {
             base.OnAppearing();
 
-            //COMMENT OUT REPLACE WITH LOAD COMMAND WITH FILTER VALUE
-            //Device.BeginInvokeOnMainThread(_geographyListView.BeginRefresh);
-
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
-//            if ((ViewModel.AllPhotosList != null) && (ViewModel.AllPhotosList.Count == 0))
-////                ViewModel.LoadItemsCommand.Execute(null);
-                //ViewModel.RefreshCommand.Execute(null);
-
-            //if (viewModel.Items.Count == 0)
-                ViewModel.LoadItemsCommandWithFilterValue.Execute(FilterValueModel);
+            ViewModel.LoadItemsCommandWithFilterValue.Execute(FilterValueModel);
 
         }
 
@@ -170,8 +143,6 @@ namespace AzureBlobStorageSampleApp
 
         }
 
-        //void HandleAddContactButtonClicked(object sender, EventArgs e) =>
-            //Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
         #endregion
     }
 }

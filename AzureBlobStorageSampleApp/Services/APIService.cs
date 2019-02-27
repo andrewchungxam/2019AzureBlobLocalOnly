@@ -32,9 +32,7 @@ namespace AzureBlobStorageSampleApp
 
         public static Task<PhotoModel> PatchPhoto(PhotoModel photoModel, string photoTitle) => ExecutePollyFunction(() => PhotosApiClient.PatchPhoto(photoModel, photoTitle, BackendConstants.PostPhotoBlobFunctionKey));
 
-
         //#TODO - if not using Function with AuthorizationLevel.Anonymous, add something similar to the following (Also be user to make changes in IPhotosAPI.cs)
-
         //public static Task<PhotoModel> PostPhotoBlob(PhotoBlobModel photoBlob, string photoTitle) => ExecutePollyFunction(() => PhotosApiClient.PostPhotoBlob(photoBlob, photoTitle));
 
         static Task<T> ExecutePollyFunction<T>(Func<Task<T>> action, int numRetries = 3)

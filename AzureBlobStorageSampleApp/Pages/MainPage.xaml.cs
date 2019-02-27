@@ -46,24 +46,6 @@ namespace AzureBlobStorageSampleApp.Pages
                         MenuPages.Add(id, new NavigationPage(new AboutPage()){ BarBackgroundColor = ColorConstants.NavigationBarBackgroundColor, BarTextColor = ColorConstants.NavigationBarTextColor });
                         break;
                 }
-                //switch (id)
-                //{
-                //    case (int)MenuItemType.Browse:
-                //        MenuPages.Add(id, new NavigationPage(new PhotoListPage()){ BarBackgroundColor = ColorConstants.PageBackgroundColor, BarTextColor = Color.NavigationBarTextColor });
-                //        break;
-                //    case (int)MenuItemType.GeographyListPage:
-                //        MenuPages.Add(id, new NavigationPage(new GeographyListPage()));   ()){ BarBackgroundColor = ColorConstants.PageBackgroundColor, BarTextColor = Color.NavigationBarTextColor });
-                //        break;
-                //    case (int)MenuItemType.DateTimeListPage:
-                //        MenuPages.Add(id, new NavigationPage(new DateTimeListPage()));()){ BarBackgroundColor = ColorConstants.PageBackgroundColor, BarTextColor = Color.NavigationBarTextColor });
-                //        break;
-                //    case (int)MenuItemType.BarcodeListPage:
-                //        MenuPages.Add(id, new NavigationPage(new BarcodeListPage()));()){ BarBackgroundColor = ColorConstants.PageBackgroundColor, BarTextColor = Color.NavigationBarTextColor });
-                //        break;
-                //    case (int)MenuItemType.About:
-                //        MenuPages.Add(id, new NavigationPage(new AboutPage()));()){ BarBackgroundColor = ColorConstants.PageBackgroundColor, BarTextColor = Color.NavigationBarTextColor });
-                //        break;
-                //}
             }
 
             var newPage = MenuPages[id];

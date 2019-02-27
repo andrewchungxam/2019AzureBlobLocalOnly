@@ -1,7 +1,5 @@
 ﻿using System;
 
-using System;
-
 using Xamarin.Forms;
 
 using AzureBlobStorageSampleApp.Shared;
@@ -48,20 +46,14 @@ namespace AzureBlobStorageSampleApp.Pages
             _geographyListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
             _geographyListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
 
-            //#TODO - modifying size of cells
             _geographyListView.HasUnevenRows = true;
-
-
-
 
             Title = PageTitles.LocationPage;
 
             var stackLayout = new StackLayout();
             stackLayout.Children.Add(_geographyListView);
 
-
             var relativeLayout = new RelativeLayout();
-            //relativeLayout.Children.Add(searchBar, _photosListView,
 
             relativeLayout.Children.Add(stackLayout,
                                        Constraint.Constant(0),
@@ -78,13 +70,9 @@ namespace AzureBlobStorageSampleApp.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            ViewModel.CheckInternetConnectionCommand.Execute(null);
             Device.BeginInvokeOnMainThread(_geographyListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
-
-//            if ((ViewModel.AllPhotosList != null) && (ViewModel.AllPhotosList.Count == 0))
-////                ViewModel.LoadItemsCommand.Execute(null);
-                //ViewModel.RefreshCommand.Execute(null);
         }
 
         protected override void OnDisappearing()
@@ -119,9 +107,6 @@ namespace AzureBlobStorageSampleApp.Pages
                 {
                     if (selectedPhoto != null)
                     {
-                        //SWITCH AFER TEST - KEEP THIS FOR NOW
-//                      await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
-//                        await Navigation.PushAsync(new SelectedPhotoListPage(selectedPhoto));
 
                         var filterValueModel = new FilterValueModel() 
                         { 
@@ -141,9 +126,7 @@ namespace AzureBlobStorageSampleApp.Pages
             }
 
         }
-
-        //void HandleAddContactButtonClicked(object sender, EventArgs e) =>
-            //Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
+            
         #endregion
     }
 }

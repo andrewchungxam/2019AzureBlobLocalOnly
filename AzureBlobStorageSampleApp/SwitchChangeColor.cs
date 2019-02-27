@@ -41,14 +41,6 @@ namespace AzureBlobStorageSampleApp.Effects
 
     public class SwitchChangeColorEffect : RoutingEffect
     {
-        //public SwitchChangeColorEffect()
-        //    : base(EffectIds.SwitchChangeColor)
-
-        //{
-        //}
-
-        //RoutingEffects.SwitchChangeColorEffect
-
         public SwitchChangeColorEffect() : base("MyCompany.SwitchChangeColor")
         {
         }

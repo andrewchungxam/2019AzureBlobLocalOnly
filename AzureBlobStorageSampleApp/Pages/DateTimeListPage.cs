@@ -1,18 +1,4 @@
-﻿//using System;
-//using Xamarin.Forms;
-//namespace AzureBlobStorageSampleApp
-//{
-//    public class DateTimeListPage : ContentPage
-//    {
-//        public DateTimeListPage()
-//        {
-//        }
-//    }
-//}
-
-using System;
-
-using System;
+﻿using System;
 
 using Xamarin.Forms;
 
@@ -60,11 +46,7 @@ namespace AzureBlobStorageSampleApp
             _photosListView.SetBinding(ListView.ItemsSourceProperty, nameof(ViewModel.AllPhotosList));
             _photosListView.SetBinding(ListView.RefreshCommandProperty, nameof(ViewModel.RefreshCommand));
 
-            //#TODO - modifying size of cells
             _photosListView.HasUnevenRows = true;
-
-
-
 
             Title = PageTitles.DatePage;
 
@@ -73,7 +55,6 @@ namespace AzureBlobStorageSampleApp
 
 
             var relativeLayout = new RelativeLayout();
-            //relativeLayout.Children.Add(searchBar, _photosListView,
 
             relativeLayout.Children.Add(stackLayout,
                                        Constraint.Constant(0),
@@ -90,13 +71,10 @@ namespace AzureBlobStorageSampleApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            ViewModel.CheckInternetConnectionCommand.Execute(null);
             Device.BeginInvokeOnMainThread(_photosListView.BeginRefresh);
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
-//            if ((ViewModel.AllPhotosList != null) && (ViewModel.AllPhotosList.Count == 0))
-////                ViewModel.LoadItemsCommand.Execute(null);
-                //ViewModel.RefreshCommand.Execute(null);
         }
 
         protected override void OnDisappearing()
@@ -131,10 +109,6 @@ namespace AzureBlobStorageSampleApp
                 {
                     if (selectedPhoto != null)
                     {
-                        //SWITCH AFER TEST - KEEP THIS FOR NOW
-//                      await Navigation.PushAsync(new PhotoDetailsPage(selectedPhoto));
-//                        await Navigation.PushAsync(new SelectedPhotoListPage(selectedPhoto));
-
                         var filterValueModel = new FilterValueModel() 
                         { 
                             PropertyToSort = _propertyToSort,
@@ -151,11 +125,8 @@ namespace AzureBlobStorageSampleApp
             { 
                 DisplayAlert("Please connect to the Internet ", string.Empty, "OK");
             }
-
         }
 
-        //void HandleAddContactButtonClicked(object sender, EventArgs e) =>
-            //Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new BaseNavigationPage(new AddPhotoPage())));
         #endregion
     }
 }
