@@ -44,9 +44,6 @@
         <Folder Include="Scanner\" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\ScannerHelperLibrary\ScannerHelperLibrary.csproj" />
-    </ItemGroup>
-    <ItemGroup>
       <Compile Update="Pages\MainPage.xaml.cs">
         <DependentUpon>MainPage.xaml</DependentUpon>
       </Compile>

@@ -244,10 +244,6 @@
       <Project>{D4EC6C82-3118-44A3-B54D-5AD63BA2E9BC}</Project>
       <Name>AzureBlobStorageSampleApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScannerHelperLibrary\ScannerHelperLibrary.csproj">
-      <Project>{673CB629-4AFD-4AA6-B232-DA1EE1A50D4E}</Project>
-      <Name>ScannerHelperLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\tab_feed.png" />

@@ -593,7 +593,8 @@ namespace AzureBlobStorageSampleApp
                 this.PhotoCreatedDateTime = DateTimeOffset.UtcNow;
                 //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.FilteredDate";
                 //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"))}.FilteredDateTime";
-                this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
+                //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
+                this.CreatedAtString = $"{PhotoCreatedDateTime.ToLocalTime().ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
 
             }
             catch (Exception ex)
