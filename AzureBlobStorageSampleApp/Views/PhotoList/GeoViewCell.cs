@@ -16,7 +16,6 @@ namespace AzureBlobStorageSampleApp
                 Aspect = Aspect.AspectFit,
                 BackgroundColor = ColorConstants.PageBackgroundColor
             };
-            //photo.SetBinding(Image.SourceProperty, nameof(PhotoModel.Url));
             photo.SetBinding(Image.SourceProperty, nameof(PhotoModel.Url), BindingMode.Default, new CheckAndModifyLocalFiles());
 
 
@@ -28,13 +27,10 @@ namespace AzureBlobStorageSampleApp
                 Margin = new Thickness(10, 0),
                 ColumnSpacing = 10,
                 RowDefinitions = {
-                    //new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) },},
                     new RowDefinition { Height = new GridLength(200, GridUnitType.Absolute) },},
 
                 ColumnDefinitions = {
-                    //new ColumnDefinition { Width = new GridLength(50, GridUnitType.Absolute) },
                     new ColumnDefinition { Width = new GridLength(150, GridUnitType.Absolute) },
-
                     new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },}
             };
             grid.Children.Add(photo, 0, 0);
