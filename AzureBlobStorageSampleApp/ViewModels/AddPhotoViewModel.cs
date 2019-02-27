@@ -12,8 +12,6 @@ using AzureBlobStorageSampleApp.Shared;
 using AzureBlobStorageSampleApp.Mobile.Shared;
 using AzureBlobStorageSampleApp.Services;
 
-
-
 using AsyncAwaitBestPractices.MVVM;
 using AsyncAwaitBestPractices;
 using Xamarin.Essentials;
@@ -22,7 +20,6 @@ using System.Drawing;
 using System.Collections.Generic;
 using ZXing;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
-//using ScannerHelperLibrary;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -284,7 +281,6 @@ namespace AzureBlobStorageSampleApp
             set => SetProperty(ref _localPhotoPathRelevant, value);
         }
 
-
         //ADDING DATA ON PHOTO
         float _lat;
         public float Lat
@@ -497,101 +493,13 @@ namespace AzureBlobStorageSampleApp
 
         #region Methods
 
-        //async Task ExecuteGetGeoLocationCommand()
-        //{
-
-        //    try
-        //    {
-
-        //            try
-        //            {
-
-        //                //Device.BeginInvokeOnMainThread(async () =>
-        //                //{
-        //                //    _location = await Geolocation.GetLastKnownLocationAsync();
-        //                //});
-
-
-        //                Device.BeginInvokeOnMainThread(() =>
-        //                {
-        //                    _location = Geolocation.GetLastKnownLocationAsync();
-        //                });
-        //                //var location1 = await Geolocation.GetLastKnownLocationAsync();
-        //                //LastLocation = FormatLocation(location);'
-
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Console.WriteLine($"error: {ex}");
-        //            }
-
-        //       //var location = await Geolocation.GetLastKnownLocationAsync();
-        //        //var location = await Geolocation.GetLocationAsync();   
-
-        //        if (_location != null)
-        //        {
-        //            Console.WriteLine($"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}, Altitude: {_location.Altitude}");
-        //        } else
-        //        {
-        //            Console.WriteLine($"Exiting geolocation");
-        //            //return;
-        //        }
-
-        //        //this.GeoString = "Paramus, NJ";
-
-        //        //var lat = 47.673988;
-        //        //var lon = -122.121513;
-
-        //        //var placemarks = Task.Run(async () => await Geocoding.GetPlacemarksAsync(lat, lon)).Result;
-
-        //        var lat = 47.673988;
-        //        var lon = -122.121513;
-            
-        //        var placemarks = Task.Run(async () => await Geocoding.GetPlacemarksAsync(_location.Latitude, _location.Longitude)).Result;
-
-
-        //        var placemark = placemarks?.FirstOrDefault();
-
-        //        if (placemark != null)
-        //        {
-        //            //var geocodeAddress =
-        //            //$"AdminArea:       {placemark.AdminArea}\n" +
-        //            //$"CountryCode:     {placemark.CountryCode}\n" +
-        //            //$"CountryName:     {placemark.CountryName}\n" +
-        //            //$"FeatureName:     {placemark.FeatureName}\n" +
-        //            //$"Locality:        {placemark.Locality}\n" +
-        //            //$"PostalCode:      {placemark.PostalCode}\n" +
-        //            //$"SubAdminArea:    {placemark.SubAdminArea}\n" +
-        //            //$"SubLocality:     {placemark.SubLocality}\n" +
-        //            //$"SubThoroughfare: {placemark.SubThoroughfare}\n" +
-        //            //$"Thoroughfare:    {placemark.Thoroughfare}\n";
-
-        //            var geocodeAddress = $"Location: {placemark.Locality}, {placemark.AdminArea}";
-
-        //            //Console.WriteLine(geocodeAddress);
-        //            this.GeoString = geocodeAddress;
-        //        }
-        //    }
-        //    catch (FeatureNotSupportedException fnsEx)
-        //    {
-        //        // Feature not supported on device
-        //        //return $"Feature not supported: {fnsEx}";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle exception that may have occurred in geocoding
-        //        //return $"Error: {ex}";
-        //    }
-
-        //}
-
         async Task StampDateTime()
         {
 
             try
             {
                 this.PhotoCreatedDateTime = DateTimeOffset.UtcNow;
-                //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.FilteredDate";
+
                 //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMddHHmmss", new CultureInfo("en-US"))}.FilteredDateTime";
                 //this.CreatedAtString = $"{PhotoCreatedDateTime.ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
                 this.CreatedAtString = $"{PhotoCreatedDateTime.ToLocalTime().ToString("yyyyMMdd", new CultureInfo("en-US"))}.FilteredDateTime";
@@ -606,11 +514,8 @@ namespace AzureBlobStorageSampleApp
 
             async Task ExecuteGetGeoLocationCommand()
         {
-            //#TODO DATABASEENTRIES
             try
             {
-                ////MOVE TO SEPERATE COMMAND
-                //await this.StampDateTime();
 
                 var locationFromPhone = await GetLocationFromPhone().ConfigureAwait(false);
 
@@ -655,11 +560,9 @@ namespace AzureBlobStorageSampleApp
             }
             catch (FeatureNotSupportedException fnsEx)
             {
-                //return await $"Error: {fnsEx}";
             }
             catch (Exception ex)
             {
-                //return await $"Error: {ex}";
             }
         }
 
@@ -677,115 +580,13 @@ namespace AzureBlobStorageSampleApp
             return await locationTaskCompletionSource.Task;
         }
 
-
-        //async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
-        //{
-        //    if (IsPhotoSaving)
-        //        return;
-
-        //    //#TODO - Uncomment - when blob storage requires authorization
-        //    //if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
-        //    //{
-        //    //    OnSavePhotoFailed("Invalid Azure Function Key");
-        //    //    return;
-        //    //}
-
-        //    if (string.IsNullOrWhiteSpace(photoTitle))
-        //    {
-        //        OnSavePhotoFailed("Title Cannot Be Empty");
-        //        return;
-        //    }
-
-        //    IsPhotoSaving = true;
-
-        //    try
-        //    {
-        //        var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
-
-        //        if (photo is null)
-        //        {
-        //            OnSavePhotoFailed("Error Uploading Photo");
-        //        }
-        //        else
-        //        {
-        //            await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
-        //            OnSavePhotoCompleted();
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        OnSavePhotoFailed(e.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsPhotoSaving = false;
-        //    }
-        //}
-
-        ////WITHOUT INTERNET
-        //async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
-        //{
-        //    if (IsPhotoSaving)
-        //        return;
-
-        //    //#TODO - Uncomment - when blob storage requires authorization
-        //    if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
-        //    {
-        //        OnSavePhotoFailed("Invalid Azure Function Key");
-        //        return;
-        //    }
-
-        //    if (string.IsNullOrWhiteSpace(photoTitle))
-        //    {
-        //        OnSavePhotoFailed("Title Cannot Be Empty");
-        //        return;
-        //    }
-
-        //    IsPhotoSaving = true;
-
-        //    try
-        //    {
-        //        //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
-
-        //        //if (photo is null)
-        //        //{
-        //        //    OnSavePhotoFailed("Error Uploading Photo");
-        //        //}
-        //        //else
-        //        //{
-
-        //        var currentTime = DateTimeOffset.UtcNow;
-
-        //        var photo = new PhotoModel() { 
-                
-        //            Title = photoTitle,
-        //            //Url = LocalPhotoPath,
-        //            Url = LocalPhotoPathRelevant,
-        //            //CreatedAt = currentTime,
-        //            //UpdatedAt = currentTime,
-        //        };
-        //            await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
-        //            OnSavePhotoCompleted();
-        //        //}
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        OnSavePhotoFailed(e.Message);
-        //    }
-        //    finally
-        //    {
-        //        IsPhotoSaving = false;
-        //    }
-        //}
-
-        //WITHOUT INTERNET
         async Task ExecuteSavePhotoCommand(PhotoBlobModel photoBlob, string photoTitle)
         {
 
             if (IsPhotoSaving)
                 return;
 
-            //#TODO - Uncomment - when blob storage requires authorization
+            //#TODO - Uncomment when blob storage requires authorization
             if (string.IsNullOrWhiteSpace(BackendConstants.PostPhotoBlobFunctionKey))
             {
                 OnSavePhotoFailed("Invalid Azure Function Key");
@@ -805,7 +606,6 @@ namespace AzureBlobStorageSampleApp
 
                 if  (this.IsInternetConnectionActive == true)
                 {
-                    //PHOTOBLOB - SAVE THE VARIOUS ATTRIBUTES
                     photoBlob.Tag1 = Tag1;
                     photoBlob.Tag2 = Tag2;
                     photoBlob.Tag3 = Tag3;
@@ -858,28 +658,13 @@ namespace AzureBlobStorageSampleApp
                 //INTERNET-OFF
                 else if (this.IsInternetConnectionActive == false)
                 { 
-                    //var photo = await APIService.PostPhotoBlob(photoBlob, photoTitle).ConfigureAwait(false);
-
-                    //if (photo is null)
-                    //{
-                    //    OnSavePhotoFailed("Error Uploading Photo");
-                    //}
-                    //else
-                    //{
-
                     var currentTime = DateTimeOffset.UtcNow;
-
-
-                    //PHOTO - SAVE THE VARIOUS ATTRIBUTES
-
 
                     var photo = new PhotoModel() { 
                     
                         Title = photoTitle,
-                        //Url = LocalPhotoPath,
                         Url = LocalPhotoPathRelevant,
                         CreatedAt = currentTime,
-                        //UpdatedAt = currentTime,
                         Tag1 = Tag1,
                         Tag2 = Tag2,
                         Tag3 = Tag3,
@@ -918,33 +703,6 @@ namespace AzureBlobStorageSampleApp
                         BarcodeString = BarcodeString, 
 
                     };
-                        //photo.photoTag1 = Tag1,
-                        //photo.Tag2 = Tag2,
-                        //photo.Tag3 = Tag3,
-                        //photo.Tag4 = Tag4,
-                        //photo.Tag5 = Tag5,
-                        //photo.Tag6 = Tag6,
-                        //photo.Tag7 = Tag7;
-                        //photo.Tag8 = Tag8,
-                        //photo.Tag9 = Tag9,
-                        //photo.Tag10 = Tag10,
-
-                        //photo.TagsSeperatedWithSpaces = TagsSeperatedWithSpaces,
-
-                        //photo.Tag1 = Tag1,
-                        //photo.Tag2 = Tag2,
-                        //photo.Tag3 = Tag3,
-                        //photo.Tag4 = Tag4,
-                        //photo.Tag5 = Tag5,
-                        //photo.Tag6 = Tag6,
-                        //photo.Tag7 = Tag7,
-                        //photo.Tag8 = Tag8,
-                        //photo.Tag9 = Tag9,
-                        //photo.Tag10 = Tag10,
-
-                        //photo.CustomTagsSeperatedWithSpaces = CustomTagsSeperatedWithSpaces,
-                        //photo.CreatedAtString = CustomTagsSeperatedWithSpaces,
-
 
                         await PhotoDatabase.SavePhoto(photo).ConfigureAwait(false);
                         OnSavePhotoCompleted();
@@ -961,7 +719,6 @@ namespace AzureBlobStorageSampleApp
         }
 
         //PICK PHOTO
-        //BarcodeDecoding barcode;
         async Task ExecuteGetPhotoCommand()
         {
             await this.StampDateTime();
@@ -979,13 +736,7 @@ namespace AzureBlobStorageSampleApp
             };
 
 
-            //////
-
-            //File.WR   (SAVE WITH PROPER NAME // THEN SET THE URL PROPERTY OF PAGE TO EQUAL THE "RELEVANT PATH PROPERTY")
-            
             var pathNameFile = mediaFile.Path;
-
-//"/var/mobile/Containers/Data/Application/1655FB04-8633-43AF-90AB-E514F28556C6/Documents/temp/IMG_20190225_132848.jpg"
 
             var tempFolderPlusFileName = pathNameFile.Replace(App.LocalAppDirectoryPath, "");
             var newFileName = tempFolderPlusFileName.Replace("temp/" , "");
@@ -995,8 +746,6 @@ namespace AzureBlobStorageSampleApp
 
             var finalFolderPath = App.LocalAppDirectoryPath + App.LocalPhotoFolderName;
 
-    //Should be the following
-    //"/var/mobile/Containers/Data/Application/1655FB04-8633-43AF-90AB-E514F28556C6/Documents/LocalPhotosFolder
             if (!System.IO.Directory.Exists(finalFolderPath))
             {
                 System.IO.Directory.CreateDirectory(finalFolderPath);
@@ -1007,23 +756,6 @@ namespace AzureBlobStorageSampleApp
             var directoryName = App.LocalPhotoFolderName;
 
             this.LocalPhotoPathRelevant = $"{App.LocalPhotoFolderName}/{newFileName}";
-            
-
-//////////////////////////////////////////////////////////////////////////
-
-
-            //DON'T NEED THIS
-            //this.LocalPhotoPath = pathNameFile;
-
-            //var tempByteArray = ConvertStreamToByteArrary(mediaFile.GetStream());
-
-            //PhotoBlob = new PhotoBlobModel
-            //{
-            //    Image = ConvertStreamToByteArrary(mediaFile.GetStream())
-            //};
-
-            ////////
-
 
             if (IsComputerVision || IsCustomVision)
             {
@@ -1042,9 +774,6 @@ namespace AzureBlobStorageSampleApp
                 var client = new ComputerVisionService();
                 using (var photoStream = mediaFile.GetStream())
                 {
-                    //ImageAnalysis analysis = client.AnalyzeImageAsync(photoStream);
-                    //ImageAnalysis analysis = await client.computerVisionClient.AnalyzeImageInStreamAsync(photoStream);    //AnalyzeImageInStreamAsync(photoStream);
-
                     analysis = await client.computerVisionClient.AnalyzeImageInStreamAsync(photoStream, visFeatures);                                                                                                //DisplayResults (analysis, photoStream);
                     DisplayResults(analysis);
                 }
@@ -1064,18 +793,14 @@ namespace AzureBlobStorageSampleApp
         {
             await this.StampDateTime();
 
-            //DELETE
-            //var mediaFile = await GetStoredMediaFileFromCamera().ConfigureAwait(false);
-
             var mediaFile = await GetMediaFileFromCamera().ConfigureAwait(false);
 
             if (mediaFile is null)
                 return;
 
             var pathNameFile = mediaFile.Path;
-            //var pathNameAlbum = mediaFile.AlbumPath;
 
-            //DON'T NEED THIS
+            //REFERENCE ONLY *FULL PATH*
             this.LocalPhotoPath = pathNameFile;
 
             var tempByteArray = ConvertStreamToByteArrary(mediaFile.GetStream());
@@ -1103,9 +828,6 @@ namespace AzureBlobStorageSampleApp
                 var client = new ComputerVisionService();
                 using (var photoStream = mediaFile.GetStream())
                 {
-                    //ImageAnalysis analysis = client.AnalyzeImageAsync(photoStream);
-                    //ImageAnalysis analysis = await client.computerVisionClient.AnalyzeImageInStreamAsync(photoStream);    //AnalyzeImageInStreamAsync(photoStream);
-
                     analysis = await client.computerVisionClient.AnalyzeImageInStreamAsync(photoStream, visFeatures);                                                                                                //DisplayResults (analysis, photoStream);
                     DisplayResults(analysis);
                 }
@@ -1117,53 +839,22 @@ namespace AzureBlobStorageSampleApp
                 var tagList = this.GetBestTagList(mediaFile);
                 DisplayCustomVisionResults(tagList);
             }
-
-            //TODO
-            //var barcodeScannerService = new BarcodeScannerServiceLib();
-            //var stringBarcode = barcodeScannerService.JustDecodeBarcode(PhotoBlob.Image);
-            //var stringBarcode = barcodeScannerService.DecodeBarcode(PhotoBlob.Image);
-
-            //var barcodeScannerService = new BarcodeScannerService();
-            //var byteArray = this.DoConvertMediaFileToByteArray(mediaFile);
-            //var stringBarcode = barcodeScannerService.DecodeBarcode(byteArray);
-
-
-            //System.Drawing.Bitmap(filename);
-
-            //int hi = 5;
-
-            //barcode = new BarcodeDecoding();
-
-            //var aditionalHints = new KeyValuePair<DecodeHintType, object>(key: DecodeHintType.PURE_BARCODE, value: "TRUE");
-
-            //var result = barcode.Decode(file: "image_to_read", format: BarcodeFormat.QR_CODE, aditionalHints: new[] { aditionalHints });
-
-            //Label to show the text decoded
-            //QrResult.Text = result.Text;
-
-            //var qrRest = result.Text;
-
         }
 
         // Display the most relevant caption for the image
         private void DisplayResults(ImageAnalysis analysis)
         {
             Console.WriteLine("Test image 1");
-            //Console.WriteLine(analysis.Description.Captions[0].Text + "\n");
 
             this.DescriptionCaptionOfImage = analysis.Description.Captions.FirstOrDefault()?.Text ?? "";
 
-            this.ForegroundColor = analysis.Color?.DominantColorForeground ?? ""; //.FirstOrDefault()?.Text ?? "";
+            this.ForegroundColor = analysis.Color?.DominantColorForeground ?? ""; 
 
-            //this.ColorsListOfStrings = analysis.Color.Select(t => t.DominantColors).ToList();
             this.ColorsListOfStrings = analysis.Color.DominantColors.ToList();
 
 
             var newStringBuilder1 = new StringBuilder();
 
-            //foreach (var metaData in result.ResultMetadata)
-
-            //foreach (var colorName in analysis.Tags.Select(t => t.Name))
             foreach (var colorName in analysis.Color.DominantColors.Select(x=>x.ToLower()).ToList())
             {
                 newStringBuilder1.Append($"#{colorName} ");
@@ -1174,18 +865,12 @@ namespace AzureBlobStorageSampleApp
 
             this.ColorsCombinedString = trimCombinedString1;
 
-
-
-
             this.ObjectDescription = analysis.Objects.FirstOrDefault()?.ObjectProperty ?? "";  //.Text ?? "";
 
             this.TagsListOfStrings = analysis.Tags.Select(t => t.Name).ToList();
-            //this.TagsCombinedString = analysis.Tags.Select(t => t.Name).ToString();
 
             //TagsCombinedString
             var newStringBuilder = new StringBuilder();
-
-            //foreach (var metaData in result.ResultMetadata)
 
             foreach (var tagName in analysis.Tags.Select(t => t.Name))
             {
@@ -1200,22 +885,6 @@ namespace AzureBlobStorageSampleApp
 
             //TagsCombinedStringWithoutTag
             var newStringBuilderWithoutTag = new StringBuilder();
-
-            //foreach (var metaData in result.ResultMetadata)
-
-            //foreach (var tagName in analysis.Tags.Select(t => t.Name))
-            //{
-            //    newStringBuilderWithoutTag.Append($"{tagName} ");
-
-            //}
-
-
-            //for (int i = 0; i < 10; i++)
-            //for ((var tagName in analysis.Tags.Select(t => t.Name))
-            //{
-            //    newStringBuilderWithoutTag.Append($"{tagName} ");
-
-            //}
 
             for (int i = 0; i < analysis.Tags.Count ; i++)
             {
@@ -1263,16 +932,9 @@ namespace AzureBlobStorageSampleApp
             var combinedTagStringWithoutTag = newStringBuilderWithoutTag.ToString();
             var trimCombinedStringWithoutTag = combinedTagStringWithoutTag.Trim();
 
-                       //this.TagsCombinedString = trimCombinedString;
-
             this.TagsSeperatedWithSpaces  = trimCombinedStringWithoutTag;
-
-
-            //TagsListOfStrings
         }
-
-        // Display the most relevant caption for the image
-        //private void DisplayCustomVisionResults(IEnumerable<ImageTagPredictionModel> tagList)
+            
         private void DisplayCustomVisionResults(IEnumerable<ImageTagPredictionModel> tagList)
         {
             StringBuilder stringOfTags = new StringBuilder();
@@ -1286,7 +948,6 @@ namespace AzureBlobStorageSampleApp
                 foreach (var tagItem in tagList)
                 {
                     stringOfTags.Append($"#{tagItem.Tag} ");
-                    //Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
                 }
 
                 var combinedTagString = stringOfTags.ToString();
@@ -1297,25 +958,12 @@ namespace AzureBlobStorageSampleApp
                 //TAGS WITHOUT # TO BE SAVED
                 StringBuilder stringOfTagsWithoutHashes = new StringBuilder();
 
-                //foreach (var tagItem in tagList)
-                //{
-                //    stringOfTagsWithoutHashes.Append($"#{tagItem.Tag} ");
-                //    //Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
-                //}
-
-                //var combinedTagStringWithoutHashes = stringOfTagsWithoutHashes.ToString();
-                //var trimCombinedStringWithoutHashes = combinedTagStringWithoutHashes.Trim();
-
-                //this.CustomTagsSeperatedWithSpaces = trimCombinedStringWithoutHashes;
-
                 var ListTagList = tagList.ToList();
 
-                //for (int i = 0; i < tagList.Count(); i++)
                 for (int i = 0; i < ListTagList.Count(); i++)
                 {
-                    //var itemTagName = analysis.Tags[i].Name;
 
-                    var itemTagName = ListTagList[i].Tag;    ; //analysis.Tags[i].Name;
+                    var itemTagName = ListTagList[i].Tag; 
 
                     stringOfTagsWithoutHashes.Append($"{itemTagName} ");
 
@@ -1369,8 +1017,6 @@ namespace AzureBlobStorageSampleApp
         {
             using (var stream = file.GetStream())
             {
-                //var predictImagePredictions = _endpoint.PredictImage(CustomVisionService.ProjectId, stream).Predictions;
-
                 var _endpoint = new CustomVisionService()._endpoint;
                 var predictImagePredictions = _endpoint.PredictImage(CustomVisionService.ProjectId, stream).Predictions;
                 var orderedPredictions = predictImagePredictions.OrderByDescending(p => p.Probability).Where(p => p.Probability > CustomVisionService.ProbabilityThreshold);
@@ -1382,8 +1028,6 @@ namespace AzureBlobStorageSampleApp
 
         private Task ExecuteTakeScanCommand()
         {
-            //    var customScanPage = new CustomScanPage();
-            //    //    await Navigation.PushAsync(customScanPage);
             throw new NotImplementedException();
         }
 
@@ -1397,16 +1041,11 @@ namespace AzureBlobStorageSampleApp
             }
         }
 
-        //https://stackoverflow.com/questions/33947138/convert-image-into-byte-array-in-xamarin-forms
         byte[] DoConvertMediaFileToByteArray(MediaFile mediaFile)
         {
 
             byte[] imageByte;
             Stream imageStream = null;
-
-            //var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            //{ Name = "pic.jpg" });
-            //if (file == null) return;
 
             imageStream = mediaFile.GetStream();
             BinaryReader br = new BinaryReader(imageStream);
@@ -1427,10 +1066,7 @@ namespace AzureBlobStorageSampleApp
 
             var dateTimeNowStringJpg = $"{DateTime.Now.ToString("MMMdhmmtt", new CultureInfo("en-US"))}.jpg";
 
-            //var directoryName = "LocalPhotosFolder";
-            //can switch to 
             var directoryName = App.LocalPhotoFolderName;
-
 
             var mediaFileTCS = new TaskCompletionSource<MediaFile>();
             Device.BeginInvokeOnMainThread(async () =>
@@ -1445,16 +1081,11 @@ namespace AzureBlobStorageSampleApp
             });
 
             this.LocalPhotoPathRelevant = $"{directoryName}/{dateTimeNowStringJpg}";
-            
-
-
 
             var fileAppDataDirectory = FileSystem.AppDataDirectory;
-            //var fileAppCacheDirectory = FileSystem.CacheDirectory;
 
             var fileAppCacheDirectoryMinusLibrary = fileAppDataDirectory.Replace("Library", "");
             var fileAppCacheDirectoryMinusLibraryPlusDirectory = fileAppCacheDirectoryMinusLibrary + "Documents/" + $"{directoryName}/{dateTimeNowStringJpg}";
-            //this.LocalPhotoPathRelevant  = fileAppCacheDirectoryMinusLibraryPlusDirectory; //NO - we just want Directory + filenamae <--- this line as it stands takes full path
 
             return await mediaFileTCS.Task;
         }
@@ -1466,7 +1097,6 @@ namespace AzureBlobStorageSampleApp
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                //OnNoCameraFound();
                 OnNoCameraPickerFound();
                 return null;
             }
@@ -1477,7 +1107,6 @@ namespace AzureBlobStorageSampleApp
                 mediaFileTCS.SetResult(await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
                 {
                     PhotoSize = PhotoSize.Small,
-                    //DefaultCamera = CameraDevice.Rear,
                    
                 }));
             });
