@@ -332,12 +332,22 @@ namespace AzureBlobStorageSampleApp
         #endregion
 
         #region Methods
+        //void HandleSavePhotoCompleted(object sender, EventArgs e)
+        //{
+        //    Device.BeginInvokeOnMainThread(async () =>
+        //    {
+        //        await DisplayAlert("Photo Saved", string.Empty, "OK");
+        //        ClosePage();
+        //    });
+        //}
+
+        //#TODO AUTOSAVE 3 or 3
         void HandleSavePhotoCompleted(object sender, EventArgs e)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await DisplayAlert("Photo Saved", string.Empty, "OK");
-                ClosePage();
+                //ClosePage();
             });
         }
 

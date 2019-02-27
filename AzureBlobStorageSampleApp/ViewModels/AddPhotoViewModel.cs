@@ -119,10 +119,17 @@ namespace AzureBlobStorageSampleApp
             set => SetProperty(ref _photoTitle, value, UpdatePageTilte);
         }
 
+        //public ImageSource PhotoImageSource
+        //{
+        //    get => _photoImageSource;
+        //    set => SetProperty(ref _photoImageSource, value);
+        //}
+
+        //#TODO AUTOSAVE 1 of 3
         public ImageSource PhotoImageSource
         {
             get => _photoImageSource;
-            set => SetProperty(ref _photoImageSource, value);
+            set => SetProperty(ref _photoImageSource, value, AutoSave);
         }
 
         PhotoBlobModel PhotoBlob
@@ -1130,6 +1137,11 @@ namespace AzureBlobStorageSampleApp
         void OnNoCameraFound() => _noCameraFoundEventManager.HandleEvent(this, EventArgs.Empty, nameof(NoCameraFound));
         void OnNoCameraPickerFound() => _noCameraPickerFoundEventManager.HandleEvent(this, EventArgs.Empty, nameof(OnNoCameraPickerFound));
         void OnSavePhotoCompleted() => _savePhotoCompletedEventManager.HandleEvent(this, EventArgs.Empty, nameof(SavePhotoCompleted));
+
+
+        //#TODO AUTOSAVE 2 of 3
+        void AutoSave() =>
+            this.SavePhotoCommand.Execute(null);
         #endregion
     }
 }
