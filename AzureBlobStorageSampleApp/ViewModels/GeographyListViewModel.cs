@@ -36,8 +36,6 @@ namespace AzureBlobStorageSampleApp
 
         public GeographyListViewModel()
         {
-            //SearchCommand = new Command(() => ExecuteSearchCommand());
-
         }
 
         public ObservableCollection<PhotoModel> AllPhotosList
@@ -70,31 +68,15 @@ namespace AzureBlobStorageSampleApp
 
             try
             {
-//                var oneSecondTaskToShowSpinner = Task.Delay(1000);
                 var oneSecondTaskToShowSpinner = Task.Delay(700);
 
 
                 if (this.IsInternetConnectionActive == true) { 
-                //NOT SURE WE NEED THIS ONE IN THE LOCAL ONLY SCNEARIO
                     await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
                 }
 
-                //var unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
                 unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
 
-                    //var filteredBySubjectThenSelectOnlyOneOfEachSubject = filteredBySubject.GroupBy(x => x.LessonNumber).Select(y => y.First()); //ToList();
-
-                    ////foreach (var item in filteredItems)
-                    //foreach (var item in filteredBySubjectThenSelectOnlyOneOfEachSubject)
-                    //{
-                    //    Items.Add(item);
-                    //}
-
-
-
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.OrderBy(x => x.Title));
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.OrderBy(x => x.CreatedAt));
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()));
                 AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()).Where(x=>!string.IsNullOrEmpty(x.CityState)))      ;
 
                 await oneSecondTaskToShowSpinner.ConfigureAwait(false);

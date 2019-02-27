@@ -36,8 +36,6 @@ namespace AzureBlobStorageSampleApp
 
         public DateTimeListViewModel()
         {
-            //SearchCommand = new Command(() => ExecuteSearchCommand());
-
         }
 
         public ObservableCollection<PhotoModel> AllPhotosList
@@ -70,18 +68,14 @@ namespace AzureBlobStorageSampleApp
 
             try
             {
-//                var oneSecondTaskToShowSpinner = Task.Delay(1000);
                 var oneSecondTaskToShowSpinner = Task.Delay(700);
 
 
                 if (this.IsInternetConnectionActive == true) { 
-                //NOT SURE WE NEED THIS ONE IN THE LOCAL ONLY SCNEARIO
                     await DatabaseSyncService.SyncRemoteAndLocalDatabases().ConfigureAwait(false);
                 }
 
                 unsortedPhotosList = await PhotoDatabase.GetAllPhotos().ConfigureAwait(false);
-
-                //AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CityState).Select(y => y.First()));
 
                 AllPhotosList = new ObservableCollection<PhotoModel>(unsortedPhotosList.GroupBy(x => x.CreatedAtString).Select(y => y.First()).OrderBy(x=>x.CreatedAtString));
 
