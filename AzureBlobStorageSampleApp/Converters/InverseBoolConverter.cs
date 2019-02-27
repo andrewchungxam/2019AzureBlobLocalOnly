@@ -66,9 +66,6 @@ namespace AzureBlobStorageSampleApp
                 return string.Empty;
 
             var dtString = dateTimeOffsetValue.ToLocalTime().ToString("MMM d, h:mm tt", new CultureInfo("en-US"));
-            //return $"Barcode: {barcode}";
-
-                                    //CreatedDateTimeString = DateTime.Now.ToString("MMM d h:mm tt", new CultureInfo("en-US")),
 
             return dtString;
 
@@ -92,12 +89,7 @@ namespace AzureBlobStorageSampleApp
                 return string.Empty;
 
             var dtString = dateTimeOffsetValue.ToLocalTime().ToString("MMMM d, yyyy", new CultureInfo("en-US"));
-            //return $"Barcode: {barcode}";
-
-                                    //CreatedDateTimeString = DateTime.Now.ToString("MMM d h:mm tt", new CultureInfo("en-US")),
-
             return dtString;
-
 
         }
 
@@ -119,10 +111,6 @@ namespace AzureBlobStorageSampleApp
 
             var dtString = dateTimeOffsetValue.ToLocalTime().ToString("MMMM d, yyyy h:mm tt", new CultureInfo("en-US"));
 
-            //return $"Barcode: {barcode}";
-
-                                    //CreatedDateTimeString = DateTime.Now.ToString("MMM d h:mm tt", new CultureInfo("en-US")),
-
             return dtString;
 
 
@@ -143,9 +131,8 @@ namespace AzureBlobStorageSampleApp
                 return string.Empty;
             } else if ( valueWord.Contains("http"))            
                 { 
-                return valueWord; //NO CHANGE
-            } //else if ( valueWord.Contains("LocalPhotosFolder"))
-                //can change to 
+                return valueWord; 
+            } 
                 else if (valueWord.Contains(App.LocalPhotoFolderName))
             {
                 var fullString = $"{App.LocalAppDirectoryPath}{valueWord}";
@@ -155,9 +142,6 @@ namespace AzureBlobStorageSampleApp
             { 
                 return string.Empty;
             }
-
-            //return $"Caption: {valueWord}";
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) { 

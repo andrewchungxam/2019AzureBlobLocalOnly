@@ -25,13 +25,6 @@ namespace AzureBlobStorageSampleApp.Functions
             try
             {
                 var photoModel = await JsonService.DeserializeMessage<PhotoModel>(req).ConfigureAwait(false);
-                //var photo = await PhotosBlobStorageService.SavePhoto(imageBlobWithId.Image, title).ConfigureAwait(false);
-
-                ////ADDING ID COMPATABILITY
-                //photo.Id = imageBlobWithId.Id;
-
-                //ALREADY ID COMPATIBLE
-                //await PhotoDatabaseService.InsertPhoto(photo).ConfigureAwait(false);
                 await PhotoDatabaseService.InsertPhoto(photoModel).ConfigureAwait(false);
 
                 return new CreatedResult(photoModel.Url, photoModel);
