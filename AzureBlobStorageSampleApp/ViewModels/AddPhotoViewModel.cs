@@ -119,18 +119,18 @@ namespace AzureBlobStorageSampleApp
             set => SetProperty(ref _photoTitle, value, UpdatePageTilte);
         }
 
-        //public ImageSource PhotoImageSource
-        //{
-        //    get => _photoImageSource;
-        //    set => SetProperty(ref _photoImageSource, value);
-        //}
-
-        //#TODO AUTOSAVE 1 of 3
         public ImageSource PhotoImageSource
         {
             get => _photoImageSource;
-            set => SetProperty(ref _photoImageSource, value, AutoSave);
+            set => SetProperty(ref _photoImageSource, value);
         }
+
+        ////#TODO AUTOSAVE 1 of 3
+        //public ImageSource PhotoImageSource
+        //{
+        //    get => _photoImageSource;
+        //    set => SetProperty(ref _photoImageSource, value, AutoSave);
+        //}
 
         PhotoBlobModel PhotoBlob
         {
@@ -792,6 +792,7 @@ namespace AzureBlobStorageSampleApp
                 var tagList = this.GetBestTagList(mediaFile);
                 DisplayCustomVisionResults(tagList);
             }
+           this.AutoSaveMethod();
         }
 
 
@@ -846,6 +847,8 @@ namespace AzureBlobStorageSampleApp
                 var tagList = this.GetBestTagList(mediaFile);
                 DisplayCustomVisionResults(tagList);
             }
+
+           this.AutoSaveMethod();
         }
 
         // Display the most relevant caption for the image
@@ -1140,8 +1143,16 @@ namespace AzureBlobStorageSampleApp
 
 
         //#TODO AUTOSAVE 2 of 3
-        void AutoSave() =>
-            this.SavePhotoCommand.Execute(null);
+        //void AutoSave() => this.SavePhotoCommand.Execute(null);
+
+        void AutoSaveMethod()
+        { 
+            Task.Run(async () => await ExecuteSavePhotoCommand(this.PhotoBlob, this.PhotoTitle));
+        }
+
+            //(_savePhotoCommand = new AsyncCommand(() => ExecuteSavePhotoCommand(PhotoBlob, PhotoTitle), continueOnCapturedContext: false));
+
+
         #endregion
     }
 }

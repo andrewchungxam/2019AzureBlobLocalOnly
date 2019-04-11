@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>AzureBlobStorageSampleApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.AzureBlobStorageSampleApp</string>
+	<string>com.xamarin.AutoAzureBlobStorageSampleApp</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -51,6 +51,6 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleName</key>
-	<string>AzureBlobStorageSampleApp</string>
+	<string>AutoAzureBlobStorageSampleApp</string>
 </dict>
 </plist>
