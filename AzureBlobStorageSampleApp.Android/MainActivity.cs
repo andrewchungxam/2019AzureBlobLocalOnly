@@ -12,7 +12,9 @@ namespace AzureBlobStorageSampleApp.Android
     {
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
+
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -24,6 +26,7 @@ namespace AzureBlobStorageSampleApp.Android
 
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState); // add this line to your code, it may also be called: bundle
+
 
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);

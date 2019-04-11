@@ -54,6 +54,6 @@
         <DependentUpon>AboutPage.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
-    <Import Project="..\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems')" />
-    <Import Project="..\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems" Label="Shared" Condition="Exists('..\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems')" />
+    <Import Project="..\..\..\Downloads\AzureBlobStorageSampleApp-master\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems" Label="Shared" Condition="Exists('..\..\..\Downloads\AzureBlobStorageSampleApp-master\AzureBlobStorageSampleApp.Mobile.Shared\AzureBlobStorageSampleApp.Mobile.Shared.projitems')" />
+    <Import Project="..\..\..\Downloads\AzureBlobStorageSampleApp-master\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems" Label="Shared" Condition="Exists('..\..\..\Downloads\AzureBlobStorageSampleApp-master\AzureBlobStorageSampleApp.Shared\AzureBlobStorageSampleApp.Shared.projitems')" />
 </Project>
